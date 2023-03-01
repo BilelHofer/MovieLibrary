@@ -21,7 +21,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
             super(view);
             // Define click listener for the ViewHolder's View
 
-            filmTitle = (TextView) view.findViewById(R.id.movie_item);
+            filmTitle = (TextView) view.findViewById(R.id.item_movie_title);
         }
 
         public TextView getFilmTitle() {

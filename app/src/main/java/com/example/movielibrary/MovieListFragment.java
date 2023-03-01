@@ -21,7 +21,7 @@ public class MovieListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
         // Données de test
-        datasetTest = new String[1000];
+        datasetTest = new String[100];
         for (int i = 0; i < datasetTest.length; i++) {
             datasetTest[i] = "Test " + i;
         }
