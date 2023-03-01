@@ -5,12 +5,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/app_background"
+        android:id="@+id/main_layout"
         tools:context=".MainActivity">
-    
-    <androidx.recyclerview.widget.RecyclerView
+
+    <androidx.fragment.app.FragmentContainerView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
-
-
-
+            android:layout_height="wrap_content"
+            android:name="com.example.movielibrary.MovieListFragment"
+            android:id="@+id/fragmentContainerView2" />
 </RelativeLayout>
