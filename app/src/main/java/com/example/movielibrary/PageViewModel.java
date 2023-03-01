@@ -1,11 +1,10 @@
 package com.example.movielibrary;
 
+import android.widget.RelativeLayout;
+
 import androidx.lifecycle.ViewModel;
 
 public class PageViewModel extends ViewModel {
-    /**
-     * Live Data Instance
-     */
     private int mMovieIndex = -1;
 
     public void setMovieIndex(int index) {
@@ -15,4 +14,5 @@ public class PageViewModel extends ViewModel {
     public int getMovieIndex() {
         return mMovieIndex;
     }
+
 }
