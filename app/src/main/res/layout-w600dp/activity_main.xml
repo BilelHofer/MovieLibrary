@@ -11,7 +11,7 @@
 
         <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/main_movie_list_fragment_container"
-                android:layout_width="350dp"
+                android:layout_width="375dp"
                 android:layout_height="wrap_content"
                 android:name="com.example.movielibrary.MovieListFragment"/>
 

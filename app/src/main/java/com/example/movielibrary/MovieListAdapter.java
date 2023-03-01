@@ -7,8 +7,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+
+import com.example.movielibrary.APIMovie.BasicMovie;
+
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ListViewHolder> {
-    private String[] localDataSet;
+    private ArrayList<BasicMovie> localDataSet;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -16,16 +20,22 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
      */
     public static class ListViewHolder extends RecyclerView.ViewHolder {
         private final TextView filmTitle;
+        private final TextView filmAverage;
 
         public ListViewHolder(View view) {
             super(view);
             // Define click listener for the ViewHolder's View
 
             filmTitle = (TextView) view.findViewById(R.id.item_movie_title);
+            filmAverage = (TextView) view.findViewById(R.id.item_movie_average);
         }
 
         public TextView getFilmTitle() {
             return filmTitle;
+        }
+
+        public TextView getfilmAverage() {
+            return filmAverage;
         }
     }
 
@@ -36,7 +46,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public MovieListAdapter(String[] dataSet) {
+    public MovieListAdapter(ArrayList<BasicMovie> dataSet) {
         localDataSet = dataSet;
     }
 
@@ -56,12 +66,18 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.getFilmTitle().setText(localDataSet[position]);
+        viewHolder.getFilmTitle().setText(localDataSet.get(position).getTitle());
+        viewHolder.getfilmAverage().setText(localDataSet.get(position).getAverage());
+    }
+
+    public void updateData(ArrayList<BasicMovie> dataSet) {
+        localDataSet = dataSet;
+        notifyDataSetChanged();
     }
 
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return localDataSet.length;
+        return localDataSet.size();
     }
 }

@@ -14,6 +14,8 @@
         <!-- Nav bar. -->
         <item name="colorSurface">@color/light_black</item>
         <item name="colorOnSurfaceVariant">@color/white</item>
+        <!-- Nav bar android. -->
+        <item name="android:navigationBarColor">@color/light_black</item>
         <!-- Text bar. -->
         <item name="android:textColor">@color/white</item>
     </style>
