@@ -17,8 +17,8 @@ import com.example.movielibrary.APIMovie.BasicMovie;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ListViewHolder> {
     private ArrayList<BasicMovie> localDataSet;
-
     int selected_position = 0;
+    private PageViewModel pageViewModel;
 
     /**
      * Provide a reference to the type of views that you are using
@@ -48,6 +48,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     notifyItemChanged(selected_position);
                     selected_position = getAdapterPosition();
                     notifyItemChanged(selected_position);
+
+                    // On envoie l'id du film selectionné
+                    pageViewModel.selectItem(localDataSet.get(selected_position).getId());
                 }
             });
         }
@@ -68,8 +71,9 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public MovieListAdapter(ArrayList<BasicMovie> dataSet) {
+    public MovieListAdapter(ArrayList<BasicMovie> dataSet, PageViewModel pageViewModel) {
         localDataSet = dataSet;
+        this.pageViewModel = pageViewModel;
     }
 
     // Create new views (invoked by the layout manager)

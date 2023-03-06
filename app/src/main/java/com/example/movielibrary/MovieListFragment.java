@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 import com.example.movielibrary.APIMovie.BasicMovie;
 import com.example.movielibrary.APIMovie.Movie;
 import com.example.movielibrary.APIMovie.MovieAPI;
+import com.example.movielibrary.APIMovie.MovieAPIView;
 import com.example.movielibrary.APIMovie.MovieResults;
 
 import retrofit2.Call;
@@ -26,11 +28,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieListFragment extends Fragment {
-    private ArrayList<BasicMovie> datasetTest = new ArrayList<>();
+    private ArrayList<BasicMovie> localDataset = new ArrayList<>();
     private MovieListAdapter adapter;
     private int actualPageLoaded = 1;
-
-    private static PageViewModel pageViewModel;
+    private PageViewModel pageViewModel;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class MovieListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
         // Création de la dataset pour le recycleView
-        adapter = new MovieListAdapter(datasetTest);
+        adapter = new MovieListAdapter(localDataset, pageViewModel);
         recyclerView.setAdapter(adapter);
         loadMovie();
 
@@ -71,49 +72,16 @@ public class MovieListFragment extends Fragment {
     }
 
     private void loadMovie() {
-        //TODO faire une class apart pour gérer l'api
+        MovieAPIView.getMoviePages(actualPageLoaded, pageViewModel);
 
-        // Données de test récupérer depuis l'API
-        // Créez une instance de Retrofit
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        // Créez une instance de l'interface MovieApi
-        MovieAPI movieApi = retrofit.create(MovieAPI.class);
-
-        String apiKey = "d8ca27475e9a87d4db474ea21042e5af";
-
-        // Appel de la méthode getPopularMovies
-        Call<MovieResults> call = movieApi.getAllMovies(apiKey, actualPageLoaded);
-
-        call.enqueue(new Callback<MovieResults>() {
-            @Override
-            public void onResponse(Call<MovieResults> call, retrofit2.Response<MovieResults> response) {
-                if (!response.isSuccessful()) {
-                    System.out.println("Code: " + response.code());
-                    return;
-                }
-
-                MovieResults results = response.body();
-                List<Movie> movies = results.getMovies();
-
-                // Pour chaque movie on ajoute un BasicMovie dans le dataset
-                for (Movie movie : movies) {
-                    datasetTest.add(new BasicMovie(movie.getId(), movie.getTitle(), movie.getVote_average()));
-                }
-
-                // Mise à jour de l'adapter
-                adapter.updateData(datasetTest);
-                if (actualPageLoaded < results.getTotalPages())
-                    actualPageLoaded++;
-            }
-
-            @Override
-            public void onFailure(Call<MovieResults> call, Throwable t) {
-                System.out.println("Error: " + t.getMessage());
-            }
+        // Mise à jour de l'adapter
+        pageViewModel.getMovieList().observe(requireActivity(), movies -> {
+            localDataset.addAll(movies);
+            adapter.updateData(localDataset);
+            // L'api ne prend pas plus haut que 500 pages
+            if (actualPageLoaded < 500)
+                actualPageLoaded++;
         });
+
     }
 }
