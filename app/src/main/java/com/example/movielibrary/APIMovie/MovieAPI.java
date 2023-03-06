@@ -8,12 +8,11 @@ import retrofit2.http.Query;
 
 public interface MovieAPI {
     @GET("movie/popular")
-    Call<MovieResults> getPopularMovies(
+    Call<MovieResults> getAllMovies(
             @Query("api_key") String apiKey,
             @Query("page") int page
     );
 
-    //TODO TEMP TEST
     @GET("movie/{movie_id}")
     Call<BasicMovie> getMovie(
             @Path("movie_id") int movieId,

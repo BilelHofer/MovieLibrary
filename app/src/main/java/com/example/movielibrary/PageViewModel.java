@@ -2,17 +2,17 @@ package com.example.movielibrary;
 
 import android.widget.RelativeLayout;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 public class PageViewModel extends ViewModel {
-    private int mMovieIndex = -1;
+    private MutableLiveData<Integer> mItemSelected = new MutableLiveData<>();
 
-    public void setMovieIndex(int index) {
-        mMovieIndex = index;
+    public void selectItem(Integer item) {
+        mItemSelected.setValue(item);
     }
 
-    public int getMovieIndex() {
-        return mMovieIndex;
+    public MutableLiveData<Integer> getSelected() {
+        return mItemSelected;
     }
-
 }

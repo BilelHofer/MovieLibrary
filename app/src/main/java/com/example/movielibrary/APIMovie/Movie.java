@@ -1,27 +1,39 @@
 package com.example.movielibrary.APIMovie;
 
-public class Movie {
-    private int id;
-    private String title;
-    private String overview;
-    private String release_date;
-    private String poster_path;
-    private String backdrop_path;
-    private String vote_average;
-    private String vote_count;
+import java.util.List;
 
-    public Movie(int id, String title, String overview, String release_date, String poster_path, String backdrop_path, String vote_average, String vote_count) {
-        this.id = id;
-        this.title = title;
-        this.overview = overview;
-        this.release_date = release_date;
-        this.poster_path = poster_path;
+public class Movie {
+    private Boolean adult;
+    private String backdrop_path;
+    private List<Integer> genre_ids;
+    private Integer id;
+    private String overview;
+    private Double popularity;
+    private String poster_path;
+    private String release_date;
+    private Integer runtime;
+    private String title;
+    private Boolean video;
+    private String vote_average;
+    private Integer vote_count;
+
+    public Movie(Boolean adult, String backdrop_path, List<Integer> genre_ids, Integer id, String overview, Double popularity, String poster_path, String release_date, Integer runtime, String title, Boolean video, String vote_average, Integer vote_count) {
+        this.adult = adult;
         this.backdrop_path = backdrop_path;
+        this.genre_ids = genre_ids;
+        this.id = id;
+        this.overview = overview;
+        this.popularity = popularity;
+        this.poster_path = poster_path;
+        this.release_date = release_date;
+        this.runtime = runtime;
+        this.title = title;
+        this.video = video;
         this.vote_average = vote_average;
         this.vote_count = vote_count;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -29,27 +41,7 @@ public class Movie {
         return title;
     }
 
-    public String getOverview() {
-        return overview;
-    }
-
-    public String getRelease_date() {
-        return release_date;
-    }
-
-    public String getPoster_path() {
-        return poster_path;
-    }
-
-    public String getBackdrop_path() {
-        return backdrop_path;
-    }
-
     public String getVote_average() {
         return vote_average;
-    }
-
-    public String getVote_count() {
-        return vote_count;
     }
 }

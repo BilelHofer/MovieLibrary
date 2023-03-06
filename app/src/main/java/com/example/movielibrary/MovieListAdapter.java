@@ -1,5 +1,7 @@
 package com.example.movielibrary;
 
+import android.content.ClipData;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,39 +17,37 @@ import com.example.movielibrary.APIMovie.BasicMovie;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ListViewHolder> {
     private ArrayList<BasicMovie> localDataSet;
-    private static RelativeLayout oldSelectedRelativeLayout = null;
+
+    int selected_position = 0;
 
     /**
      * Provide a reference to the type of views that you are using
      * (custom ViewHolder)
      */
-    public static class ListViewHolder extends RecyclerView.ViewHolder {
+    public class ListViewHolder extends RecyclerView.ViewHolder {
         private final TextView filmTitle;
         private final TextView filmAverage;
         private final LinearLayout container;
-        private final RelativeLayout shapeBackground;
+        private final RelativeLayout shapeLayout;
         public ListViewHolder(View view) {
             super(view);
 
             filmTitle = (TextView) view.findViewById(R.id.item_movie_title);
             filmAverage = (TextView) view.findViewById(R.id.item_movie_average);
             container = (LinearLayout) view.findViewById(R.id.item_movie_container);
-            shapeBackground = (RelativeLayout) view.findViewById(R.id.item_movie_container_background);
+            shapeLayout = (RelativeLayout) view.findViewById(R.id.item_movie_container_background);
 
             // Quand on clique sur le container sa change la couleur de fond
             container.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO: le oldSelectedRelativeLayout repasse a null quand on change de page
-                    // Essayer de faire fonctionner le PageViewModel pour garder la valeur de oldSelectedRelativeLayout
-                    if (shapeBackground != oldSelectedRelativeLayout) {
-                        shapeBackground.setBackground(view.getResources().getDrawable(R.drawable.movie_list_item_background_selected));
-                        if (oldSelectedRelativeLayout != null) {
-                            oldSelectedRelativeLayout.setBackground(view.getResources().getDrawable(R.drawable.movie_list_item_background));
-                        }
+                    // Test au cas ou le holder est null
+                    if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
-                        oldSelectedRelativeLayout = shapeBackground;
-                    }
+                    // Updating old as well as new positions
+                    notifyItemChanged(selected_position);
+                    selected_position = getAdapterPosition();
+                    notifyItemChanged(selected_position);
                 }
             });
         }
@@ -85,9 +85,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, final int position) {
+        if (selected_position == position) {
+            viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background_selected));
+        } else {
+            viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background));
+        }
 
-        // Get element from your dataset at this position and replace the
-        // contents of the view with that element
+        // Mise à jour des données affichées
         viewHolder.getFilmTitle().setText(localDataSet.get(position).getTitle());
         viewHolder.getfilmAverage().setText(localDataSet.get(position).getAverage());
     }

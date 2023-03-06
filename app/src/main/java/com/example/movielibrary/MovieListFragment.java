@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -28,6 +29,14 @@ public class MovieListFragment extends Fragment {
     private ArrayList<BasicMovie> datasetTest = new ArrayList<>();
     private MovieListAdapter adapter;
     private int actualPageLoaded = 1;
+
+    private static PageViewModel pageViewModel;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pageViewModel = ViewModelProviders.of(requireActivity()).get(PageViewModel.class);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -58,7 +67,6 @@ public class MovieListFragment extends Fragment {
             }
         });
 
-
         return view;
     }
 
@@ -78,7 +86,7 @@ public class MovieListFragment extends Fragment {
         String apiKey = "d8ca27475e9a87d4db474ea21042e5af";
 
         // Appel de la méthode getPopularMovies
-        Call<MovieResults> call = movieApi.getPopularMovies(apiKey, actualPageLoaded);
+        Call<MovieResults> call = movieApi.getAllMovies(apiKey, actualPageLoaded);
 
         call.enqueue(new Callback<MovieResults>() {
             @Override
