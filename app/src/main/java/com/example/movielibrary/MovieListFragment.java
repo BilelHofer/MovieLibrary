@@ -76,9 +76,6 @@ public class MovieListFragment extends Fragment {
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
             if (movies != localDataset) {
-
-                Log.d("MovieListFragment", "loadMovie: " + actualPageLoaded);
-
                 adapter.addAll(movies);
                 localDataset = movies;
 

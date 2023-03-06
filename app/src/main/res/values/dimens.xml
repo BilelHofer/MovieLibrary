@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="info_star_marginLeft">4dp</dimen>
+    <dimen name="info_star_size">25dp</dimen>
+    <dimen name="item_like_size">25dp</dimen>
+</resources>

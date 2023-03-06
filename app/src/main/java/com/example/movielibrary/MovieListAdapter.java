@@ -2,9 +2,12 @@ package com.example.movielibrary;
 
 import android.content.ClipData;
 import android.graphics.Color;
+import android.media.Image;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,16 +31,16 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
      */
     public class ListViewHolder extends RecyclerView.ViewHolder {
         private final TextView filmTitle;
-        private final TextView filmAverage;
         private final LinearLayout container;
         private final RelativeLayout shapeLayout;
+        private final ImageView like;
         public ListViewHolder(View view) {
             super(view);
 
             filmTitle = (TextView) view.findViewById(R.id.item_movie_title);
-            filmAverage = (TextView) view.findViewById(R.id.item_movie_average);
             container = (LinearLayout) view.findViewById(R.id.item_movie_container);
             shapeLayout = (RelativeLayout) view.findViewById(R.id.item_movie_container_background);
+            like = (ImageView) view.findViewById(R.id.item_like);
 
             // Quand on clique sur le container sa change la couleur de fond
             container.setOnClickListener(new View.OnClickListener() {
@@ -55,14 +58,22 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     MovieAPIView.getMovie(localDataSet.get(selected_position).getId(), pageViewModel);
                 }
             });
+
+            like.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Test au cas ou le holder est null
+                    if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
+                }
+            });
         }
 
         public TextView getFilmTitle() {
             return filmTitle;
         }
 
-        public TextView getfilmAverage() {
-            return filmAverage;
+        public ImageView getLike() {
+            return like;
         }
     }
 
@@ -99,7 +110,12 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
         // Mise à jour des données affichées
         viewHolder.getFilmTitle().setText(localDataSet.get(position).getTitle());
-        viewHolder.getfilmAverage().setText(localDataSet.get(position).getAverage());
+
+        //TODO faire sa avec une db qui test toutes les liker
+        if (localDataSet.get(position).getId() == 505642)
+            viewHolder.getLike().setImageResource(R.drawable.like_full);
+        else
+            viewHolder.getLike().setImageResource(R.drawable.like_null);
     }
 
     // Return the size of your dataset (invoked by the layout manager)
