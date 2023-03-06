@@ -97,15 +97,52 @@
             <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4">
+                    android:layout_weight="0.4"
+                    android:padding="20dp">
 
                 <TextView
                         android:id="@+id/info_movie_overview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:padding="20dp"
+                        android:layout_marginBottom="25dp"
                         android:text="Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum."/>
+
+                <TextView
+                        android:id="@+id/info_movie_genre_1"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Action"/>
+                <TextView
+                        android:id="@+id/info_movie_genre_2"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Fantasy"/>
+                <TextView
+                        android:id="@+id/info_movie_genre_3"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Fantasy"/>
+
             </RelativeLayout>
         </LinearLayout>
 </RelativeLayout>
