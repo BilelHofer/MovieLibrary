@@ -37,12 +37,9 @@ public class MovieAPIView {
                 if (response.isSuccessful()) {
 
                     MovieResults results = response.body();
-                    List<Movie> movies = results.getMovies();
+                    List<BasicMovie> movies = results.getMovies();
 
-                    // Pour chaque movie on ajoute un BasicMovie dans le dataset
-                    for (Movie movie : movies) {
-                        dataset.add(new BasicMovie(movie.getId(), movie.getTitle(), movie.getVote_average()));
-                    }
+                    dataset.addAll(movies);
 
                     // On ajoute le dataset à la pageViewModel
                     pageViewModel.setMovieList(dataset);
@@ -51,6 +48,39 @@ public class MovieAPIView {
 
             @Override
             public void onFailure(Call<MovieResults> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    public static void getMovie(int movieId, PageViewModel pageViewModel) {
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<Movie> call = movieApi.getMovie(movieId, API_KEY);
+
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, retrofit2.Response<Movie> response) {
+                if (response.isSuccessful()) {
+                    Movie movie = response.body();
+
+                    // On ajoute le dataset à la pageViewModel
+                    pageViewModel.setMovie(movie);
+
+                    Log.d("Movie", movie.getTitle());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });

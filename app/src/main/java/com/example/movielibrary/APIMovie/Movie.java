@@ -44,4 +44,12 @@ public class Movie {
     public String getVote_average() {
         return vote_average;
     }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public String getPosterPath() {
+        return poster_path;
+    }
 }

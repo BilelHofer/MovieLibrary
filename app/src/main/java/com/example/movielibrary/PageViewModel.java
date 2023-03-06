@@ -6,21 +6,14 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
+import com.example.movielibrary.APIMovie.Movie;
 
 import java.util.ArrayList;
 
 public class PageViewModel extends ViewModel {
-    private MutableLiveData<Integer> mItemSelected = new MutableLiveData<>();
-
     private MutableLiveData<ArrayList<BasicMovie>> mMovieList = new MutableLiveData<>();
 
-    public void selectItem(Integer item) {
-        mItemSelected.setValue(item);
-    }
-
-    public MutableLiveData<Integer> getSelected() {
-        return mItemSelected;
-    }
+    private MutableLiveData<Movie> mMovie = new MutableLiveData<>();
 
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
@@ -28,5 +21,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<ArrayList<BasicMovie>> getMovieList() {
         return mMovieList;
+    }
+
+    public void setMovie(Movie movie) {
+        mMovie.setValue(movie);
+    }
+
+    public MutableLiveData<Movie> getMovie() {
+        return mMovie;
     }
 }

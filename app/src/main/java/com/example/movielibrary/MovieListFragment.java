@@ -33,6 +33,8 @@ public class MovieListFragment extends Fragment {
     private int actualPageLoaded = 1;
     private PageViewModel pageViewModel;
 
+    private boolean isLoading = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,13 +59,10 @@ public class MovieListFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                // Vérifiez si la dernière ligne visible est la dernière ligne de la liste
-                int lastVisiblePosition = ((LinearLayoutManager) recyclerView.getLayoutManager())
-                        .findLastVisibleItemPosition();
-                int totalItemCount = recyclerView.getAdapter().getItemCount();
-                if (lastVisiblePosition == totalItemCount - 1) {
+                if (!isLoading) {
                     // Chargez la page suivante des données
                     loadMovie();
+                    isLoading = true;
                 }
             }
         });
@@ -76,11 +75,19 @@ public class MovieListFragment extends Fragment {
 
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
-            localDataset.addAll(movies);
-            adapter.updateData(localDataset);
-            // L'api ne prend pas plus haut que 500 pages
-            if (actualPageLoaded < 500)
-                actualPageLoaded++;
+            if (movies != localDataset) {
+
+                Log.d("MovieListFragment", "loadMovie: " + actualPageLoaded);
+
+                adapter.addAll(movies);
+                localDataset = movies;
+
+                // L'api ne prend pas plus haut que 500 pages
+                if (actualPageLoaded < 500)
+                    actualPageLoaded++;
+
+                isLoading = false;
+            }
         });
 
     }

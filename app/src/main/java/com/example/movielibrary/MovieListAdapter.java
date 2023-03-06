@@ -14,10 +14,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
+import com.example.movielibrary.APIMovie.MovieAPIView;
 
 public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.ListViewHolder> {
     private ArrayList<BasicMovie> localDataSet;
-    int selected_position = 0;
+
+    int selected_position = -1;
     private PageViewModel pageViewModel;
 
     /**
@@ -50,7 +52,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     notifyItemChanged(selected_position);
 
                     // On envoie l'id du film selectionné
-                    pageViewModel.selectItem(localDataSet.get(selected_position).getId());
+                    MovieAPIView.getMovie(localDataSet.get(selected_position).getId(), pageViewModel);
                 }
             });
         }
@@ -100,14 +102,15 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
         viewHolder.getfilmAverage().setText(localDataSet.get(position).getAverage());
     }
 
-    public void updateData(ArrayList<BasicMovie> dataSet) {
-        localDataSet = dataSet;
-        notifyDataSetChanged();
-    }
-
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
         return localDataSet.size();
+    }
+
+    public void addAll(ArrayList<BasicMovie> movies) {
+        localDataSet.addAll(movies);
+
+        notifyDataSetChanged();
     }
 }

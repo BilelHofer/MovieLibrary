@@ -14,7 +14,7 @@ public interface MovieAPI {
     );
 
     @GET("movie/{movie_id}")
-    Call<BasicMovie> getMovie(
+    Call<Movie> getMovie(
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey
     );

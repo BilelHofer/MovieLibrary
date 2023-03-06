@@ -15,7 +15,7 @@ public class MovieResults {
     private int totalPages;
 
     @SerializedName("results")
-    private List<Movie> movies;
+    private List<BasicMovie> movies;
 
     public int getPage() {
         return page;
@@ -29,7 +29,7 @@ public class MovieResults {
         return totalPages;
     }
 
-    public List<Movie> getMovies() {
+    public List<BasicMovie> getMovies() {
         return movies;
     }
 }
