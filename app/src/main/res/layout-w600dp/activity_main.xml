@@ -8,12 +8,15 @@
         android:id="@+id/main_layout"
         tools:context=".MainActivity"
         android:orientation="horizontal">
+        <!--TODO Faire un responsive mobile landscape-->
 
         <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/main_movie_list_fragment_container"
                 android:layout_width="375dp"
                 android:layout_height="wrap_content"
                 android:name="com.example.movielibrary.MovieListFragment"/>
+
+        <!--
 
         <ImageView
                 android:layout_width="5dp"
@@ -25,5 +28,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:name="com.example.movielibrary.MovieInformationFragment" />
+        -->
 
 </LinearLayout>
