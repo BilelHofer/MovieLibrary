@@ -53,13 +53,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     // Test au cas ou le holder est null
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
-                    // Updating old as well as new positions
-                    notifyItemChanged(selected_position);
-                    selected_position = getAdapterPosition();
-                    notifyItemChanged(selected_position);
-
-                    // On envoie l'id du film selectionné
-                    MovieAPIView.getMovie(localDataSet.get(selected_position).getId(), pageViewModel);
+                    updateSelected();
                 }
             });
 
@@ -69,13 +63,23 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     // Test au cas ou le holder est null
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
-                    selected_position = getAdapterPosition();
+                    updateSelected();
 
                     Log.d("MovieListAdapter", "Like clicked");
 
                     updateLike(localDataSet.get(selected_position).getId());
                 }
             });
+        }
+
+        private void updateSelected() {
+            // Updating old as well as new positions
+            notifyItemChanged(selected_position);
+            selected_position = getAdapterPosition();
+            notifyItemChanged(selected_position);
+
+            // On envoie l'id du film selectionné
+            MovieAPIView.getMovie(localDataSet.get(selected_position).getId(), pageViewModel);
         }
 
         public TextView getFilmTitle() {
@@ -121,14 +125,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
         // Mise à jour des données affichées
         viewHolder.getFilmTitle().setText(localDataSet.get(position).getTitle());
-
-        /*
-        //TODO faire sa avec une db qui test toutes les liker
-        if (localDataSet.get(position).getId() == 505642)
-            viewHolder.getLike().setImageResource(R.drawable.like_full);
-        else
-            viewHolder.getLike().setImageResource(R.drawable.like_null);
-*/
 
         if (dbHelper.isMovieLiked(localDataSet.get(position).getId())) {
             viewHolder.getLike().setImageResource(R.drawable.like_full);

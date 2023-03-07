@@ -49,7 +49,6 @@ public class MovieInformationFragment extends Fragment {
 
             String posterPath = movie.getPosterPath();
 
-            //TODO pour actor w300
             Picasso.get().load("https://image.tmdb.org/t/p/w500" + posterPath)
                     .into(poster);
 
