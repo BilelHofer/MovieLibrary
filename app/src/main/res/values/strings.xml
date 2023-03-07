@@ -15,5 +15,6 @@
         <item>Novembre</item>
         <item>Décembre</item>
     </string-array>
+    <string name="actor_title">Acteurs</string>
 
 </resources>

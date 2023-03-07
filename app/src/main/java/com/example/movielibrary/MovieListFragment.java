@@ -19,8 +19,8 @@ import com.example.movielibrary.APIMovie.MovieAPIView;
 public class MovieListFragment extends Fragment {
     private ArrayList<BasicMovie> localDataset = new ArrayList<>();
     private MovieListAdapter adapter;
-    private int actualPageLoaded = 1;
     private PageViewModel pageViewModel;
+    private int actualPageLoaded = 1;
 
     private boolean isLoading = false;
 

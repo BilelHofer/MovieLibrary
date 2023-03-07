@@ -150,6 +150,31 @@
                         android:padding="20dp"
                         android:text="Fantasy"/>
 
+                <TextView
+                        android:id="@+id/info_movie_actor_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_genre_1"
+                        android:textSize="@dimen/summary_title2_size"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/actor_title"/>
+
+                <ScrollView
+                        android:id="@+id/info_movie_actor_list_scrollview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_below="@id/info_movie_actor_title"
+                        android:padding="20dp">
+
+                <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/info_actor_list_fragment_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:name="com.example.movielibrary.ActorListFragment"/>
+
+                </ScrollView>
             </RelativeLayout>
         </LinearLayout>
 </RelativeLayout>
