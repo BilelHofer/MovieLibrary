@@ -16,7 +16,7 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Movie> mMovie = new MutableLiveData<>();
     private String mLanguage = "fr-FR";
-
+    private int mScreenSzie = 0;
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -47,5 +47,13 @@ public class PageViewModel extends ViewModel {
 
     public String getLanguage() {
         return mLanguage;
+    }
+
+    public void setScreenSize(int screenSize) {
+        mScreenSzie = screenSize;
+    }
+
+    public int getScreenSize() {
+        return mScreenSzie;
     }
 }

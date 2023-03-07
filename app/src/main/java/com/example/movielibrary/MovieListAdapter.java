@@ -115,7 +115,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, final int position) {
-        if (selected_position == position) {
+        if (selected_position == position && pageViewModel.getMovie().getValue() != null) {
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background_selected));
         } else {
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background));

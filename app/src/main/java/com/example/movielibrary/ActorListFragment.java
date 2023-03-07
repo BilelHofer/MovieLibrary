@@ -49,7 +49,9 @@ public class ActorListFragment extends Fragment {
 
     private void loadActors() {
         pageViewModel.getMovie().observe(requireActivity(), movie -> {
-            MovieAPIView.getMovieCredits(movie.getId(), pageViewModel);
+            if (movie != null) {
+                MovieAPIView.getMovieCredits(movie.getId(), pageViewModel);
+            }
         });
 
         // Mise à jour de l'adapter

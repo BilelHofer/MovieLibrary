@@ -1,10 +1,12 @@
 package com.example.movielibrary;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ScrollView;
 
 import java.util.Locale;
@@ -28,6 +30,37 @@ public class MainActivity extends AppCompatActivity {
             pageViewModel.setLanguage("fr-FR");
         } else {
             pageViewModel.setLanguage("en-US");
+        }
+
+        // Modifi le fonctionnement de l'application en fonction de la taille de l'écran
+        if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
+            getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+            pageViewModel.setScreenSize(0);
+        } else if (getResources().getConfiguration().smallestScreenWidthDp < 1200) {
+            pageViewModel.setScreenSize(1);
+        } else {
+            pageViewModel.setScreenSize(2);
+        }
+
+        pageViewModel.getMovie().observe(this, movie -> {
+            if (movie != null) {
+                if (pageViewModel.getScreenSize() == 0) {
+                    getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
+                    getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                }
+            }
+        });
+    }
+
+    @Override
+    public void onBackPressed() {
+        Log.d("test", "onBackPressed: " + pageViewModel.getScreenSize());
+        if (pageViewModel.getScreenSize() == 0) {
+            getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
+            getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+            pageViewModel.setMovie(null);
+        } else {
+            super.onBackPressed();
         }
     }
 }
