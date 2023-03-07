@@ -4,45 +4,60 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".MovieInformationFragment">
-    <!--TODO faire un responsive -->
-
     <ScrollView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-        <LinearLayout
-                android:id="@+id/info_left_panel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
         <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-        <ImageView
-                android:id="@+id/info_movie_poster"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/poster_test"
-                android:background="@drawable/border_image"
-                android:padding="1dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="10dp"/>
+            <ImageView
+                    android:id="@+id/info_movie_poster"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/poster_test"
+                    android:background="@drawable/border_image"
+                    android:layout_centerHorizontal="true"
+                    android:padding="1dp"
+                    android:layout_marginTop="20dp"/>
 
-        <TextView
-                android:id="@+id/info_movie_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/info_movie_poster"
-                android:layout_margin="10dp"
-                android:textSize="20sp"
-                android:textStyle="bold"/>
+            <TextView
+                    android:id="@+id/info_movie_title"
+                    android:layout_width="340dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/info_movie_poster"
+                    android:layout_centerHorizontal="true"
+                    android:layout_margin="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
+
+            <TextView
+                    android:id="@+id/info_movie_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/info_movie_title"
+                    android:layout_marginStart="40dp"
+                    android:textSize="15sp"
+                    android:text="1h20"/>
+            <TextView
+                    android:id="@+id/info_movie_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/info_movie_title"
+                    android:layout_alignParentEnd="true"
+                    android:paddingEnd="36dp"
+                    android:textSize="@dimen/info_text_date_size"
+                    android:text="Octobre 1988"/>
 
             <LinearLayout
                     android:id="@+id/info_movie_stars"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:paddingStart="20dp"
+                    android:layout_marginTop="@dimen/info_star_marginTop"
                     android:orientation="horizontal">
                 <ImageView
                         android:id="@+id/info_star_1"
@@ -74,18 +89,92 @@
                         android:layout_marginStart="@dimen/info_star_marginLeft"
                         android:src="@drawable/star_not_filled" />
             </LinearLayout>
-        </RelativeLayout>
-            <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
 
+                <TextView
+                        android:id="@+id/info_movie_overview_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_time"
+                        android:textSize="@dimen/summary_title2_size"
+                        android:textStyle="bold"
+                        android:layout_marginTop="30dp"
+                        android:layout_marginStart="@dimen/info_w600_marginStart"
+                        android:layout_marginBottom="@dimen/summary_title_marginBottom"
+                        android:text="@string/summary_title"/>
                 <TextView
                         android:id="@+id/info_movie_overview"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:padding="20dp"/>
+                        android:layout_gravity="center_horizontal|center"
+                        android:layout_below="@id/info_movie_overview_title"
+                        android:layout_marginStart="@dimen/info_w600_marginStart"
+                        android:layout_marginBottom="@dimen/summary_marginBottom"
+                        android:text="Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum."/>
+
+            <!-- TODO gérer les genre avec des weight-->
+                <TextView
+                        android:id="@+id/info_movie_genre_1"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_alignParentStart="true"
+                        android:gravity="center"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Action"/>
+                <TextView
+                        android:id="@+id/info_movie_genre_2"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_centerHorizontal="true"
+                        android:gravity="center"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Fantasy"/>
+                <TextView
+                        android:id="@+id/info_movie_genre_3"
+                        android:layout_width="120dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_below="@id/info_movie_overview"
+                        android:layout_alignParentEnd="true"
+                        android:gravity="center"
+                        android:background="@drawable/genre_background"
+                        android:padding="20dp"
+                        android:text="Fantasy"/>
+
+                <TextView
+                        android:id="@+id/info_movie_actor_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_genre_1"
+                        android:layout_marginStart="@dimen/info_w600_marginStart"
+                        android:textSize="@dimen/summary_title2_size"
+                        android:textStyle="bold"
+                        android:layout_marginTop="20dp"
+                        android:text="@string/actor_title"/>
+<!--
+                <androidx.fragment.app.FragmentContainerView
+                        android:id="@+id/info_actor_list_fragment_container"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/info_movie_actor_title"
+                        android:padding="20dp"
+                        android:name="com.example.movielibrary.ActorListFragment"/>
+-->
             </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
+        </ScrollView>
+
+    <ImageView
+            android:id="@+id/info_like"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            android:background="@drawable/like_null"
+            android:layout_alignParentEnd="true"/>
+
 </RelativeLayout>

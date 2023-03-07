@@ -12,4 +12,5 @@
     <dimen name="info_star_marginTop">25dp</dimen>
     <dimen name="info_text_date_size">15sp</dimen>
     <dimen name="info_date_marginEnd">20dp</dimen>
+    <dimen name="info_w600_marginStart">20dp</dimen>
 </resources>

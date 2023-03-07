@@ -15,11 +15,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:name="com.example.movielibrary.MovieListFragment"/>
-<!--
+
     <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_movie_information_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.example.movielibrary.MovieInformationFragment" />
-            -->
+
 </RelativeLayout>
