@@ -3,4 +3,13 @@
     <dimen name="info_star_marginLeft">4dp</dimen>
     <dimen name="info_star_size">25dp</dimen>
     <dimen name="item_like_size">25dp</dimen>
+    <dimen name="item_title_width">280dp</dimen>
+    <dimen name="summary_marginBottom">35dp</dimen>
+    <dimen name="summary_title_marginBottom">5dp</dimen>
+    <dimen name="summary_title2_size">18sp</dimen>
+    <dimen name="info_rightPanel_padding">20dp</dimen>
+    <dimen name="info_star_marginEnd">20dp</dimen>
+    <dimen name="info_star_marginTop">25dp</dimen>
+    <dimen name="info_text_date_size">15sp</dimen>
+    <dimen name="info_date_marginEnd">20dp</dimen>
 </resources>

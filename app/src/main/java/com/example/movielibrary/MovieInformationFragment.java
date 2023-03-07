@@ -54,6 +54,18 @@ public class MovieInformationFragment extends Fragment {
 
             // Met à jour la date de sortie
             String date = movie.getRelease_date();
+
+            // Parse la date 1988-10-21 en Octobre 1988
+            String[] dateSplit = date.split("-");
+            String month = dateSplit[1];
+            String year = dateSplit[0];
+            String[] planets = getResources().getStringArray(R.array.month_array);
+
+            Integer monthInt = Integer.parseInt(month);
+
+            month = planets[monthInt - 1];
+
+            date = month + " " + year;
             releaseDate.setText(date);
 
             // Met à jour la durée du film
@@ -68,7 +80,7 @@ public class MovieInformationFragment extends Fragment {
             List<Genre> genres = movie.getGenre();
 
             for (int i = 0; i < genres.size(); i++) {
-                if (genres.get(i).getName().equals("Science Fiction")) {
+                if (genres.get(i).getName().equals("Science Fiction") || genres.get(i).getName().equals("Science-Fiction")) {
                     genres.get(i).setName("Sci-Fi");
                 }
 

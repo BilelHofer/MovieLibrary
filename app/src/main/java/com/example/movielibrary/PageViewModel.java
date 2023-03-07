@@ -16,6 +16,8 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Movie> mMovie = new MutableLiveData<>();
 
+    private String mLanguage = "fr-FR";
+
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -38,5 +40,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<Movie> getMovie() {
         return mMovie;
+    }
+
+    public void setLanguage(String language) {
+        mLanguage = language;
+    }
+
+    public String getLanguage() {
+        return mLanguage;
     }
 }

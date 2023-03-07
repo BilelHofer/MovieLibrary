@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import java.util.Locale;
+
 public class MainActivity extends AppCompatActivity {
 
     private PageViewModel pageViewModel;
@@ -17,5 +19,14 @@ public class MainActivity extends AppCompatActivity {
 
         // initialise le  ViewModel
         pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
+
+        // Choix de la langue de l'API en fonction de la langue du téléphone
+        String languagename = Locale.getDefault().getDisplayLanguage();
+
+        if (languagename.equals("français")) {
+            pageViewModel.setLanguage("fr-FR");
+        } else {
+            pageViewModel.setLanguage("en-US");
+        }
     }
 }

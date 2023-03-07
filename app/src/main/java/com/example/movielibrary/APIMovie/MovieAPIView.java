@@ -27,7 +27,7 @@ public class MovieAPIView {
         MovieAPI movieApi = retrofit.create(MovieAPI.class);
 
         // Appel de la méthode pour récupérer les films
-        Call<MovieResult> call = movieApi.getAllMovies(API_KEY, page);
+        Call<MovieResult> call = movieApi.getAllMovies(API_KEY, page, pageViewModel.getLanguage());
 
         call.enqueue(new Callback<MovieResult>() {
             @Override
@@ -64,7 +64,7 @@ public class MovieAPIView {
         MovieAPI movieApi = retrofit.create(MovieAPI.class);
 
         // Appel de la méthode pour récupérer les films
-        Call<Movie> call = movieApi.getMovie(movieId, API_KEY);
+        Call<Movie> call = movieApi.getMovie(movieId, API_KEY, pageViewModel.getLanguage());
 
         call.enqueue(new Callback<Movie>() {
             @Override

@@ -54,53 +54,7 @@ public class Movie {
     }
 
     public String getRelease_date() {
-        String date = release_date;
-
-        // Parse la date 1988-10-21 en Octobre 1988
-        String[] dateSplit = date.split("-");
-        String month = dateSplit[1];
-        String year = dateSplit[0];
-
-        switch (Integer.parseInt(month)) {
-            case 1:
-                month = "Janvier";
-                break;
-            case 2:
-                month = "Février";
-                break;
-            case 3:
-                month = "Mars";
-                break;
-            case 4:
-                month = "Avril";
-                break;
-            case 5:
-                month = "Mai";
-                break;
-            case 6:
-                month = "Juin";
-                break;
-            case 7:
-                month = "Juillet";
-            case 8:
-                month = "Août";
-                break;
-            case 9:
-                month = "Septembre";
-                break;
-            case 10:
-                month = "Octobre";
-                break;
-            case 11:
-                month = "Novembre";
-                break;
-            case 12:
-                month = "Décembre";
-                break;
-        }
-
-        date = month + " " + year;
-        return date;
+        return release_date;
     }
 
     public String getRuntime() {

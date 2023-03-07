@@ -10,14 +10,16 @@ public interface MovieAPI {
     @GET("movie/popular")
     Call<MovieResult> getAllMovies(
             @Query("api_key") String apiKey,
-            @Query("page") int page
+            @Query("page") int page,
+            @Query("language") String language
     );
 
     @GET("movie/{movie_id}")
     Call<Movie> getMovie(
             @Path("movie_id") int movieId,
-            @Query("api_key") String apiKey
-    );
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+            );
 
     @GET("movie/{movie_id}/credits")
     Call<CreditsResult> getCredits(
