@@ -3,7 +3,7 @@
     <dimen name="info_star_marginLeft">4dp</dimen>
     <dimen name="info_star_size">25dp</dimen>
     <dimen name="item_like_size">25dp</dimen>
-    <dimen name="item_title_width">280dp</dimen>
+    <dimen name="item_title_width">270dp</dimen>
     <dimen name="summary_marginBottom">35dp</dimen>
     <dimen name="summary_title_marginBottom">5dp</dimen>
     <dimen name="summary_title2_size">18sp</dimen>
