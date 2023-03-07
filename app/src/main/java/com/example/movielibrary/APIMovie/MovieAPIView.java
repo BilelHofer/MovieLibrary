@@ -39,6 +39,8 @@ public class MovieAPIView {
                     MovieResults results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
+
+
                     dataset.addAll(movies);
 
                     // On ajoute le dataset à la pageViewModel

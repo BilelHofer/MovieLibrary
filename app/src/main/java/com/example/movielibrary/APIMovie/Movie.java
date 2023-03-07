@@ -111,4 +111,8 @@ public class Movie {
 
         return time;
     }
+
+    public List<Genre> getGenre() {
+        return genres;
+    }
 }

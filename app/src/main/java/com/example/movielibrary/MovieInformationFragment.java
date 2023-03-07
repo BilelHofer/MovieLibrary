@@ -12,9 +12,12 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.movielibrary.APIMovie.Genre;
 import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
+
+import java.util.List;
 
 public class MovieInformationFragment extends Fragment {
 
@@ -56,6 +59,50 @@ public class MovieInformationFragment extends Fragment {
             // Met à jour la durée du film
             String time = movie.getRuntime() + " min";
             duration.setText(time);
+
+            // Met à jour les genres
+            TextView genre1 = view.findViewById(R.id.info_movie_genre_1);
+            TextView genre2 = view.findViewById(R.id.info_movie_genre_2);
+            TextView genre3 = view.findViewById(R.id.info_movie_genre_3);
+
+            List<Genre> genres = movie.getGenre();
+
+            for (int i = 0; i < genres.size(); i++) {
+                if (genres.get(i).getName().equals("Science Fiction")) {
+                    genres.get(i).setName("Sci-Fi");
+                }
+
+                switch (i) {
+                    case 0:
+                        genre1.setText(genres.get(i).getName());
+                        break;
+                    case 1:
+                        genre2.setText(genres.get(i).getName());
+                        break;
+                    case 2:
+                        genre3.setText(genres.get(i).getName());
+                        break;
+                }
+            }
+
+            // Cache des genre si il en manque
+            if (genres.size() < 3) {
+                genre3.setVisibility(View.GONE);
+            } else {
+                genre3.setVisibility(View.VISIBLE);
+            }
+
+            if (genres.size() < 2) {
+                genre2.setVisibility(View.GONE);
+            } else {
+                genre2.setVisibility(View.VISIBLE);
+            }
+
+            if (genres.size() < 1) {
+                genre1.setVisibility(View.GONE);
+            } else {
+                genre1.setVisibility(View.VISIBLE);
+            }
 
             // Mets à jour l'affichage des étoiles
             Float voteAverage = Float.parseFloat(movie.getVote_average()) / 2.0f;
