@@ -1,7 +1,5 @@
 package com.example.movielibrary.APIMovie;
 
-import android.util.Log;
-
 import com.example.movielibrary.PageViewModel;
 
 import java.util.ArrayList;
@@ -29,14 +27,14 @@ public class MovieAPIView {
         MovieAPI movieApi = retrofit.create(MovieAPI.class);
 
         // Appel de la méthode pour récupérer les films
-        Call<MovieResults> call = movieApi.getAllMovies(API_KEY, page);
+        Call<MovieResult> call = movieApi.getAllMovies(API_KEY, page);
 
-        call.enqueue(new Callback<MovieResults>() {
+        call.enqueue(new Callback<MovieResult>() {
             @Override
-            public void onResponse(Call<MovieResults> call, retrofit2.Response<MovieResults> response) {
+            public void onResponse(Call<MovieResult> call, retrofit2.Response<MovieResult> response) {
                 if (response.isSuccessful()) {
 
-                    MovieResults results = response.body();
+                    MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
 
@@ -49,7 +47,7 @@ public class MovieAPIView {
             }
 
             @Override
-            public void onFailure(Call<MovieResults> call, Throwable t) {
+            public void onFailure(Call<MovieResult> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });
@@ -76,13 +74,42 @@ public class MovieAPIView {
 
                     // On ajoute le dataset à la pageViewModel
                     pageViewModel.setMovie(movie);
-
-                    Log.d("Movie", movie.getTitle());
                 }
             }
 
             @Override
             public void onFailure(Call<Movie> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    public static void getMovieCredits(int movieId, PageViewModel pageViewModel) {
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<CreditsResult> call = movieApi.getCredits(movieId, API_KEY);
+
+        call.enqueue(new Callback<CreditsResult>() {
+            @Override
+            public void onResponse(Call<CreditsResult> call, retrofit2.Response<CreditsResult> response) {
+                if (response.isSuccessful()) {
+                    Actor[] actor = response.body().getCast();
+
+                    // On ajoute le dataset à la pageViewModel
+                    pageViewModel.setActorList(actor);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<CreditsResult> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });
