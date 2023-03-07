@@ -15,7 +15,6 @@ public class PageViewModel extends ViewModel {
     private MutableLiveData<Actor[]> mActorList = new MutableLiveData<Actor[]>();
 
     private MutableLiveData<Movie> mMovie = new MutableLiveData<>();
-
     private String mLanguage = "fr-FR";
 
     public void setMovieList(ArrayList<BasicMovie> movieList) {

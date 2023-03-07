@@ -65,8 +65,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
                     updateSelected();
 
-                    Log.d("MovieListAdapter", "Like clicked");
-
                     updateLike(localDataSet.get(selected_position).getId());
                 }
             });
@@ -154,8 +152,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
             Cursor cursor = dbHelper.getAllLike();
             while (cursor.moveToNext()) {
-                Log.d("MovieListAdapter", "Movie id: " + String.valueOf(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID))));
-
+                
                 if (movieId == cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID))) {
                     movieLiked = true;
                 }

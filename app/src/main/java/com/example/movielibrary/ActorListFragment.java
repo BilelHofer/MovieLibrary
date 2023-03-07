@@ -22,6 +22,7 @@ public class ActorListFragment extends Fragment {
     private ArrayList<Actor> localDataset = new ArrayList<>();
     private ActorListAdapter adapter;
     private PageViewModel pageViewModel;
+    private RecyclerView recyclerView;
 
 
     @Override
@@ -36,7 +37,7 @@ public class ActorListFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_actor_list, container, false);
 
-        RecyclerView recyclerView = view.findViewById(R.id.actor_list);
+        recyclerView = view.findViewById(R.id.actor_list);
 
         // Création de la dataset pour le recycleView
         adapter = new ActorListAdapter(localDataset);
@@ -53,6 +54,9 @@ public class ActorListFragment extends Fragment {
 
         // Mise à jour de l'adapter
         pageViewModel.getActorList().observe(requireActivity(), actors -> {
+           // Reset la position du scroll
+            recyclerView.smoothScrollToPosition(0);
+
             // parse la liste de tous les acteurs à 10 acteurs maximum
             ArrayList<Actor> LimitedActors = new ArrayList<>();
 
