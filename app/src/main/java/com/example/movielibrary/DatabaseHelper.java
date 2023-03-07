@@ -94,4 +94,29 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         Cursor cursor = db.rawQuery(query, null);
         return cursor.getCount();
     }
+
+    public boolean updateLike(int movieId) {
+        boolean movieLiked = false;
+
+        if (getNumberOfMovies() == 0) {
+            addMovie(movieId);
+        } else {
+
+            Cursor cursor = getAllLike();
+            while (cursor.moveToNext()) {
+
+                if (movieId == cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID))) {
+                    movieLiked = true;
+                }
+
+                if (movieLiked) {
+                    removeMovie(movieId);
+                } else {
+                    addMovie(movieId);
+                }
+            }
+            cursor.close();
+        }
+        return !movieLiked;
+    }
 }

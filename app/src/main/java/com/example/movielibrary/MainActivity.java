@@ -59,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
             pageViewModel.setMovie(null);
+            //TODO: Update la liste des films
         } else {
             super.onBackPressed();
         }

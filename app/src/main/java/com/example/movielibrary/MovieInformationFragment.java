@@ -23,12 +23,15 @@ import java.util.List;
 public class MovieInformationFragment extends Fragment {
 
     private PageViewModel pageViewModel;
+    private ImageView btn_like;
+    private DatabaseHelper dbHelper;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pageViewModel = ViewModelProviders.of(requireActivity()).get(PageViewModel.class);
+        dbHelper = new DatabaseHelper(getContext());
     }
 
     @Override
@@ -42,6 +45,38 @@ public class MovieInformationFragment extends Fragment {
                 updateMovieInformation(view, movie);
             }
         });
+
+        if (pageViewModel.getScreenSize() == 0) {
+            btn_like = view.findViewById(R.id.info_like);
+        } else {
+            btn_like = null;
+        }
+
+        if (btn_like != null) {
+            // Met à jour l'icone de like
+            if (pageViewModel.getMovie().getValue() != null) {
+                Movie movie = pageViewModel.getMovie().getValue();
+                if (dbHelper.isMovieLiked(movie.getId())) {
+                    btn_like.setImageResource(R.drawable.like_full);
+                } else {
+                    btn_like.setImageResource(R.drawable.like_null);
+                }
+            }
+
+            // Listener sur le like
+            btn_like.setOnClickListener(v -> {
+                if (pageViewModel.getMovie().getValue() != null) {
+                    Movie movie = pageViewModel.getMovie().getValue();
+                    if (dbHelper.updateLike(movie.getId())) {
+                        btn_like.setImageResource(R.drawable.like_full);
+                    } else {
+                        btn_like.setImageResource(R.drawable.like_null);
+                    }
+                }
+            });
+        }
+
+
         return view;
     }
 

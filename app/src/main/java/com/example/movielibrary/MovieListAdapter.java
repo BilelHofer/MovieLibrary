@@ -144,28 +144,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     }
 
     protected void updateLike(int movieId) {
-        boolean movieLiked = false;
-
-        if (dbHelper.getNumberOfMovies() == 0) {
-            dbHelper.addMovie(movieId);
-        } else {
-
-            Cursor cursor = dbHelper.getAllLike();
-            while (cursor.moveToNext()) {
-                
-                if (movieId == cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID))) {
-                    movieLiked = true;
-                }
-
-                if (movieLiked == true) {
-                    dbHelper.removeMovie(movieId);
-                } else {
-                    dbHelper.addMovie(movieId);
-                }
-            }
-            cursor.close();
-
-        }
+        dbHelper.updateLike(movieId);
         notifyDataSetChanged();
     }
 }
