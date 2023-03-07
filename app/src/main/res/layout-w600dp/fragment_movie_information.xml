@@ -93,10 +93,14 @@
                             android:src="@drawable/star_not_filled" />
                 </LinearLayout>
             </RelativeLayout>
+            <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="0.4">
             <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
                     android:padding="@dimen/info_rightPanel_padding">
 
                 <TextView
@@ -176,5 +180,6 @@
 
                 </ScrollView>
             </RelativeLayout>
+            </ScrollView>
         </LinearLayout>
 </RelativeLayout>

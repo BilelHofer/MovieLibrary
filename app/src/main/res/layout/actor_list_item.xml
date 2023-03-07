@@ -5,21 +5,19 @@
         android:id="@+id/item_actor_container"
         android:layout_marginEnd="30dp">
 
-    <!--TODO background to front -->
     <ImageView
             android:id="@+id/item_actor_poster"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_baseline_person"
-            android:background="@drawable/actor_name_background"/>
+            android:background="@drawable/actor_image_filter"/>
     <ImageView
             android:id="@+id/item_actor_background"
             android:layout_width="200dp"
             android:layout_height="305dp"
             android:src="@drawable/ic_baseline_person_empty"
-            android:background="@drawable/actor_name_background"/>
+            android:background="@drawable/actor_image_filter"/>
 
-    <!--TODO max chara 21 -->
     <TextView
             android:id="@+id/item_actor_name"
             android:layout_width="wrap_content"

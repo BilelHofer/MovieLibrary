@@ -19,6 +19,8 @@ import com.example.movielibrary.APIMovie.MovieAPIView;
 public class MovieListFragment extends Fragment {
     private ArrayList<BasicMovie> localDataset = new ArrayList<>();
     private MovieListAdapter adapter;
+
+    private DatabaseHelper dbHelper;
     private PageViewModel pageViewModel;
     private int actualPageLoaded = 1;
 
@@ -28,6 +30,7 @@ public class MovieListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pageViewModel = ViewModelProviders.of(requireActivity()).get(PageViewModel.class);
+        dbHelper = new DatabaseHelper(getContext());
     }
 
     @Override
@@ -39,7 +42,7 @@ public class MovieListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
         // Création de la dataset pour le recycleView
-        adapter = new MovieListAdapter(localDataset, pageViewModel);
+        adapter = new MovieListAdapter(localDataset, pageViewModel, dbHelper);
         recyclerView.setAdapter(adapter);
         loadMovie();
 
