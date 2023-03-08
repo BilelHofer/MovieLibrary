@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 
@@ -34,6 +35,8 @@ public class MovieListFragment extends Fragment {
     private boolean isSearch = false;
     private LinearProgressIndicator progressIndicator;
 
+    private RelativeLayout noMovieFoundLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +54,14 @@ public class MovieListFragment extends Fragment {
 
         textInputLayout = view.findViewById(R.id.movie_list_search_bar);
         progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
+        noMovieFoundLayout = view.findViewById(R.id.no_result_layout);
 
+        // TODO: Faire quand quand on modifie le texte de la barre de recherche on r'affiche l'icon et le fonctionnenemnt pour la recherche
         textInputLayout.setStartIconOnClickListener(v -> {
             //TODO: open menu burger
         });
         textInputLayout.setEndIconOnClickListener(v -> {
+            noMovieFoundLayout.setVisibility(View.GONE);
             if (isSearch) {
                 resetSearch();
             } else {
@@ -106,6 +112,13 @@ public class MovieListFragment extends Fragment {
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
             // TODO: si film est vide afficher un fragments avec un message d'information
+
+            // Si la liste de film est vide, on affiche un message d'erreur
+            if (movies.size() == 0) {
+                noMovieFoundLayout.setVisibility(View.VISIBLE);
+            } else {
+                noMovieFoundLayout.setVisibility(View.GONE);
+            }
 
             if (movies != localDataset) {
                 adapter.addAll(movies);
