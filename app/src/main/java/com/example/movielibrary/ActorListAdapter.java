@@ -107,9 +107,6 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.List
             viewHolder.getActorName2().setText("");
         }
 
-
-        Log.d("ACTOR", localDataSet.get(position).getName() + " " + localDataSet.get(position).getProfile_path());
-
         if (localDataSet.get(position).getProfile_path() != null) {
             Picasso.get().load("https://image.tmdb.org/t/p/w300" + localDataSet.get(position).getProfile_path())
                     .into(viewHolder.getActorImage());

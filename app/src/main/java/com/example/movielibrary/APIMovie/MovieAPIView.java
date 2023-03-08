@@ -37,8 +37,6 @@ public class MovieAPIView {
                     MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
-
-
                     dataset.addAll(movies);
 
                     // On ajoute le dataset à la pageViewModel
@@ -110,6 +108,42 @@ public class MovieAPIView {
 
             @Override
             public void onFailure(Call<CreditsResult> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    public static void searchMovie(int page, String query, PageViewModel pageViewModel) {
+        ArrayList<BasicMovie> dataset = new ArrayList<>();
+
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<MovieResult> call = movieApi.searchMovie(API_KEY, page, query, pageViewModel.getLanguage());
+
+        call.enqueue(new Callback<MovieResult>() {
+            @Override
+            public void onResponse(Call<MovieResult> call, retrofit2.Response<MovieResult> response) {
+                if (response.isSuccessful()) {
+                    MovieResult results = response.body();
+                    List<BasicMovie> movies = results.getMovies();
+
+                    dataset.addAll(movies);
+
+                    // On ajoute le dataset à la pageViewModel
+                    pageViewModel.setMovieList(dataset);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResult> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });

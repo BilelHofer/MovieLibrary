@@ -27,6 +27,7 @@ public class MovieListFragment extends Fragment {
     private int actualPageLoaded = 1;
     private TextInputLayout textInputLayout;
     private boolean isLoading = false;
+    private boolean isSearch = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,22 @@ public class MovieListFragment extends Fragment {
             //TODO: open menu burger
         });
         textInputLayout.setEndIconOnClickListener(v -> {
-           //TODO exécuté la recherche
+            if (isSearch) {
+                resetSearch();
+            } else {
+                actualPageLoaded = 1;
+                if (textInputLayout.getEditText().getText().toString().length() > 0) {
+                    if (!isLoading) {
+                        MovieAPIView.searchMovie(actualPageLoaded, textInputLayout.getEditText().getText().toString(), pageViewModel);
+                        isLoading = true;
+                        isSearch = true;
+                        adapter.clear();
+                        textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search_cancel));
+                    }
+                } else {
+                    resetSearch();
+                }
+            }
         });
 
         // Création de la dataset pour le recycleView
@@ -78,12 +94,6 @@ public class MovieListFragment extends Fragment {
             }
         });
 
-        return view;
-    }
-
-    private void loadMovie() {
-        MovieAPIView.getMoviePages(actualPageLoaded, pageViewModel);
-
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
             if (movies != localDataset) {
@@ -97,5 +107,20 @@ public class MovieListFragment extends Fragment {
                 isLoading = false;
             }
         });
+
+        return view;
+    }
+
+    private void loadMovie() {
+        MovieAPIView.getMoviePages(actualPageLoaded, pageViewModel);
+    }
+
+    private void resetSearch() {
+        actualPageLoaded = 1;
+        adapter.clear();
+        loadMovie();
+        isSearch = false;
+        textInputLayout.getEditText().setText("");
+        textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search));
     }
 }

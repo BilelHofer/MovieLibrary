@@ -113,7 +113,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, final int position) {
-        //TODO: Ne marche pas au premier clique
+        //TODO: La selection ne dois pas se faire seulement avec la position mais aussi vérifier si l'id du film sélectionné est le même que celui de la position
         if (selected_position == position && pageViewModel.getScreenSize() == PageViewModel.ScreenSize.LARGE) {
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background_selected));
         } else {
@@ -144,6 +144,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
     protected void updateLike(int movieId) {
         dbHelper.updateLike(movieId);
+        notifyDataSetChanged();
+    }
+
+    public void clear() {
+        localDataSet.clear();
         notifyDataSetChanged();
     }
 }
