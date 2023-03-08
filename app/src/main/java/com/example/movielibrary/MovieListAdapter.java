@@ -55,7 +55,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
 
                     updateSelected();
 
-                    //TODO: ferme le clavier
+                    // Permet de fermer le clavier
+                    pageViewModel.setNeedCloseKeyboard(true);
                 }
             });
 

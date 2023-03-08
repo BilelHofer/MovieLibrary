@@ -5,10 +5,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ScrollView;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Locale;
 
@@ -44,11 +49,24 @@ public class MainActivity extends AppCompatActivity {
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.LARGE);
         }
 
+        // Listener pour ouvrir le fragment d'information sur la version mobile
         pageViewModel.getMovie().observe(this, movie -> {
             if (movie != null) {
                 if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
                     getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
                     getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                }
+            }
+        });
+
+        // Listener pour fermer le clavier au choix d'un film
+        pageViewModel.getNeedCloseKeyboard().observe(this, needCloseKeyboard -> {
+            if (needCloseKeyboard) {
+                // Ferme le clavier
+                View view = this.getCurrentFocus();
+                if (view != null) {
+                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
                 }
             }
         });

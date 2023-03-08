@@ -24,6 +24,8 @@ public class PageViewModel extends ViewModel {
     private String mLanguage = "fr-FR";
     private ScreenSize mScreenSize = ScreenSize.SMALL;
 
+    private MutableLiveData<Boolean> mNeedCloseKeyboard = new MutableLiveData<>();
+
     private MutableLiveData<Boolean> mNeedUpdate = new MutableLiveData<>();
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
@@ -71,5 +73,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getNeedUpdate() {
         return mNeedUpdate;
+    }
+
+    public void setNeedCloseKeyboard(Boolean needCloseKeyboard) {
+        mNeedCloseKeyboard.setValue(needCloseKeyboard);
+    }
+
+    public MutableLiveData<Boolean> getNeedCloseKeyboard() {
+        return mNeedCloseKeyboard;
     }
 }
