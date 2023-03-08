@@ -63,10 +63,6 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     // Test au cas ou le holder est null
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
-                    if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.LARGE) {
-                        updateSelected();
-                    }
-
                     updateLike(localDataSet.get(getAdapterPosition()).getId());
                 }
             });
@@ -117,7 +113,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ListViewHolder viewHolder, final int position) {
-        if (selected_position == position && pageViewModel.getMovie().getValue() != null) {
+        //TODO: Ne marche pas au premier clique
+        if (selected_position == position && pageViewModel.getScreenSize() == PageViewModel.ScreenSize.LARGE) {
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background_selected));
         } else {
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background));
