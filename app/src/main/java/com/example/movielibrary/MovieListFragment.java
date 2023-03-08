@@ -90,7 +90,6 @@ public class MovieListFragment extends Fragment {
 
                 if (!isLoading) {
                     // Chargez la page suivante des données
-                    progressIndicator.setVisibility(View.VISIBLE);
                     loadMovie();
                     isLoading = true;
                 }
@@ -131,6 +130,7 @@ public class MovieListFragment extends Fragment {
     private void resetSearch() {
         actualPageLoaded = 1;
         adapter.clear();
+        progressIndicator.setVisibility(View.VISIBLE);
         loadMovie();
         isSearch = false;
         textInputLayout.getEditText().setText("");
