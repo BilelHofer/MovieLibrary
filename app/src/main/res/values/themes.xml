@@ -11,9 +11,9 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
-        <!-- Nav bar. -->
+        <!-- EditText search. -->
         <item name="colorSurface">@color/light_black</item>
-        <item name="colorOnSurfaceVariant">@color/white</item>
+        <item name="colorOnSurfaceVariant">@color/black</item>
         <!-- Nav bar android. -->
         <item name="android:navigationBarColor">@color/light_black</item>
         <!-- Text bar. -->

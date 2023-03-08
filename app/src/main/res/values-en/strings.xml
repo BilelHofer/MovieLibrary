@@ -17,4 +17,6 @@
         <item>December</item>
     </string-array>
     <string name="actor_title">Actors</string>
+    <string name="edittext_content_description_start_icon">icon menu burger</string>
+    <string name="edittext_content_description_end_icon">icon for search</string>
 </resources>

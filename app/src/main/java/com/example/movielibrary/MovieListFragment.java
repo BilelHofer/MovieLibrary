@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
 import com.example.movielibrary.APIMovie.MovieAPIView;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class MovieListFragment extends Fragment {
     private ArrayList<BasicMovie> localDataset = new ArrayList<>();
@@ -23,7 +25,7 @@ public class MovieListFragment extends Fragment {
     private DatabaseHelper dbHelper;
     private PageViewModel pageViewModel;
     private int actualPageLoaded = 1;
-
+    private TextInputLayout textInputLayout;
     private boolean isLoading = false;
 
     @Override
@@ -40,6 +42,15 @@ public class MovieListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_list, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
+
+        textInputLayout = view.findViewById(R.id.movie_list_search_bar);
+
+        textInputLayout.setStartIconOnClickListener(v -> {
+            //TODO: open menu burger
+        });
+        textInputLayout.setEndIconOnClickListener(v -> {
+           //TODO exécuté la recherche
+        });
 
         // Création de la dataset pour le recycleView
         adapter = new MovieListAdapter(localDataset, pageViewModel, dbHelper);
