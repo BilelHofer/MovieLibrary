@@ -35,16 +35,16 @@ public class MainActivity extends AppCompatActivity {
         // Modifi le fonctionnement de l'application en fonction de la taille de l'écran
         if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
-            pageViewModel.setScreenSize(0);
+            pageViewModel.setScreenSize(PageViewModel.ScreenSize.SMALL);
         } else if (getResources().getConfiguration().smallestScreenWidthDp < 1200) {
-            pageViewModel.setScreenSize(1);
+            pageViewModel.setScreenSize(PageViewModel.ScreenSize.MEDIUM);
         } else {
-            pageViewModel.setScreenSize(2);
+            pageViewModel.setScreenSize(PageViewModel.ScreenSize.LARGE);
         }
 
         pageViewModel.getMovie().observe(this, movie -> {
             if (movie != null) {
-                if (pageViewModel.getScreenSize() == 0) {
+                if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
                     getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
                     getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
                 }
@@ -55,11 +55,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         Log.d("test", "onBackPressed: " + pageViewModel.getScreenSize());
-        if (pageViewModel.getScreenSize() == 0) {
+        if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
             getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
             pageViewModel.setMovie(null);
-            //TODO: Update la liste des films
         } else {
             super.onBackPressed();
         }

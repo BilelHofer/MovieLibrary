@@ -46,6 +46,7 @@ public class MovieListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
         loadMovie();
 
+        // Gère le chargement de la page suivante
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
@@ -56,6 +57,13 @@ public class MovieListFragment extends Fragment {
                     loadMovie();
                     isLoading = true;
                 }
+            }
+        });
+
+        pageViewModel.getNeedUpdate().observe(requireActivity(), needUpdate -> {
+            if (needUpdate) {
+                adapter.notifyDataSetChanged();
+                pageViewModel.setNeedUpdate(false);
             }
         });
 

@@ -10,13 +10,21 @@ import com.example.movielibrary.APIMovie.Movie;
 import java.util.ArrayList;
 
 public class PageViewModel extends ViewModel {
+
+    public enum ScreenSize {
+        SMALL,
+        MEDIUM,
+        LARGE
+    }
     private MutableLiveData<ArrayList<BasicMovie>> mMovieList = new MutableLiveData<>();
 
     private MutableLiveData<Actor[]> mActorList = new MutableLiveData<Actor[]>();
 
     private MutableLiveData<Movie> mMovie = new MutableLiveData<>();
     private String mLanguage = "fr-FR";
-    private int mScreenSzie = 0;
+    private ScreenSize mScreenSize = ScreenSize.SMALL;
+
+    private MutableLiveData<Boolean> mNeedUpdate = new MutableLiveData<>();
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -49,11 +57,19 @@ public class PageViewModel extends ViewModel {
         return mLanguage;
     }
 
-    public void setScreenSize(int screenSize) {
-        mScreenSzie = screenSize;
+    public void setScreenSize(ScreenSize screenSzie) {
+        mScreenSize = screenSzie;
     }
 
-    public int getScreenSize() {
-        return mScreenSzie;
+    public ScreenSize getScreenSize() {
+        return mScreenSize;
+    }
+
+    public void setNeedUpdate(Boolean needUpdate) {
+        mNeedUpdate.setValue(needUpdate);
+    }
+
+    public MutableLiveData<Boolean> getNeedUpdate() {
+        return mNeedUpdate;
     }
 }

@@ -63,9 +63,11 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     // Test au cas ou le holder est null
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
-                    updateSelected();
+                    if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.LARGE) {
+                        updateSelected();
+                    }
 
-                    updateLike(localDataSet.get(selected_position).getId());
+                    updateLike(localDataSet.get(getAdapterPosition()).getId());
                 }
             });
         }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.example.movielibrary.APIMovie.Genre;
@@ -40,13 +41,19 @@ public class MovieInformationFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_movie_information, container, false);
 
+        ScrollView scrollView = view.findViewById(R.id.info_main_scrollview);
+
+        // Met à jour les informations du film
         pageViewModel.getMovie().observe(requireActivity(), movie -> {
             if (movie != null) {
+                scrollView.smoothScrollTo(0, 0);
                 updateMovieInformation(view, movie);
             }
         });
 
-        if (pageViewModel.getScreenSize() == 0) {
+        // Gère le bouton like pour la version mobile
+        if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
+            Log.d("MovieInformationFragment", "onCreateView: " + pageViewModel.getScreenSize());
             btn_like = view.findViewById(R.id.info_like);
         } else {
             btn_like = null;
@@ -54,14 +61,15 @@ public class MovieInformationFragment extends Fragment {
 
         if (btn_like != null) {
             // Met à jour l'icone de like
-            if (pageViewModel.getMovie().getValue() != null) {
-                Movie movie = pageViewModel.getMovie().getValue();
-                if (dbHelper.isMovieLiked(movie.getId())) {
-                    btn_like.setImageResource(R.drawable.like_full);
-                } else {
-                    btn_like.setImageResource(R.drawable.like_null);
+            pageViewModel.getMovie().observe(requireActivity(), movie -> {
+                if (movie != null) {
+                    if (dbHelper.isMovieLiked(movie.getId())) {
+                        btn_like.setImageResource(R.drawable.like_full);
+                    } else {
+                        btn_like.setImageResource(R.drawable.like_null);
+                    }
                 }
-            }
+            });
 
             // Listener sur le like
             btn_like.setOnClickListener(v -> {
@@ -72,6 +80,7 @@ public class MovieInformationFragment extends Fragment {
                     } else {
                         btn_like.setImageResource(R.drawable.like_null);
                     }
+                    pageViewModel.setNeedUpdate(true);
                 }
             });
         }
