@@ -16,14 +16,13 @@
             app:startIconContentDescription="@string/edittext_content_description_start_icon"
             app:endIconMode="custom"
             app:endIconDrawable="@drawable/ic_search"
-            app:endIconContentDescription="@string/edittext_content_description_end_icon"
-            app:counterEnabled="true"
-            app:counterMaxLength="20"
-            app:counterTextColor="@color/white">
+            app:endIconContentDescription="@string/edittext_content_description_end_icon">
 
         <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="text"
+                android:maxLines="1"
                 android:background="@drawable/movie_list_edittext_background"/>
     </com.google.android.material.textfield.TextInputLayout>
 
