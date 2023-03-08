@@ -43,14 +43,6 @@ public class MovieInformationFragment extends Fragment {
 
         ScrollView scrollView = view.findViewById(R.id.info_main_scrollview);
 
-        // Met à jour les informations du film
-        pageViewModel.getMovie().observe(requireActivity(), movie -> {
-            if (movie != null) {
-                scrollView.smoothScrollTo(0, 0);
-                updateMovieInformation(view, movie);
-            }
-        });
-
         // Gère le bouton like pour la version mobile
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
             Log.d("MovieInformationFragment", "onCreateView: " + pageViewModel.getScreenSize());
@@ -60,16 +52,6 @@ public class MovieInformationFragment extends Fragment {
         }
 
         if (btn_like != null) {
-            // Met à jour l'icone de like
-            pageViewModel.getMovie().observe(requireActivity(), movie -> {
-                if (movie != null) {
-                    if (dbHelper.isMovieLiked(movie.getId())) {
-                        btn_like.setImageResource(R.drawable.like_full);
-                    } else {
-                        btn_like.setImageResource(R.drawable.like_null);
-                    }
-                }
-            });
 
             // Listener sur le like
             btn_like.setOnClickListener(v -> {
@@ -85,6 +67,20 @@ public class MovieInformationFragment extends Fragment {
             });
         }
 
+        // Met à jour les informations du film
+        pageViewModel.getMovie().observe(requireActivity(), movie -> {
+            if (movie != null) {
+                if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
+                    if (dbHelper.isMovieLiked(movie.getId())) {
+                        btn_like.setImageResource(R.drawable.like_full);
+                    } else {
+                        btn_like.setImageResource(R.drawable.like_null);
+                    }
+                    scrollView.smoothScrollTo(0, 0);
+                }
+                updateMovieInformation(view, movie);
+            }
+        });
 
         return view;
     }

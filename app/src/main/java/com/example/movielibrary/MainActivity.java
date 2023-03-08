@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ScrollView;
@@ -35,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
         // Modifi le fonctionnement de l'application en fonction de la taille de l'écran
         if (getResources().getConfiguration().smallestScreenWidthDp < 600) {
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.SMALL);
         } else if (getResources().getConfiguration().smallestScreenWidthDp < 1200) {
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.MEDIUM);
