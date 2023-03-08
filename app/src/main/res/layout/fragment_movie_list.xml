@@ -31,6 +31,14 @@
             android:layout_height="wrap_content"
             app:dividerInsetStart="12dp"
             app:dividerInsetEnd="12dp"/>
+    <com.google.android.material.progressindicator.LinearProgressIndicator
+            android:id="@+id/movie_list_progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingEnd="12dp"
+            android:paddingStart="12dp"
+            android:indeterminate="true"
+            app:trackThickness="2dp"/>
 
     <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"

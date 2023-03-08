@@ -13,11 +13,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
 import com.example.movielibrary.APIMovie.MovieAPIView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputLayout;
 
 public class MovieListFragment extends Fragment {
@@ -30,6 +32,7 @@ public class MovieListFragment extends Fragment {
     private TextInputLayout textInputLayout;
     private boolean isLoading = false;
     private boolean isSearch = false;
+    private LinearProgressIndicator progressIndicator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,6 +50,7 @@ public class MovieListFragment extends Fragment {
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
         textInputLayout = view.findViewById(R.id.movie_list_search_bar);
+        progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
 
         textInputLayout.setStartIconOnClickListener(v -> {
             //TODO: open menu burger
@@ -58,6 +62,7 @@ public class MovieListFragment extends Fragment {
                 actualPageLoaded = 1;
                 if (textInputLayout.getEditText().getText().toString().length() > 0) {
                     if (!isLoading) {
+                        progressIndicator.setVisibility(View.VISIBLE);
                         MovieAPIView.searchMovie(actualPageLoaded, textInputLayout.getEditText().getText().toString(), pageViewModel);
                         isLoading = true;
                         isSearch = true;
@@ -85,6 +90,7 @@ public class MovieListFragment extends Fragment {
 
                 if (!isLoading) {
                     // Chargez la page suivante des données
+                    progressIndicator.setVisibility(View.VISIBLE);
                     loadMovie();
                     isLoading = true;
                 }
@@ -111,6 +117,7 @@ public class MovieListFragment extends Fragment {
                     actualPageLoaded++;
 
                 isLoading = false;
+                progressIndicator.setVisibility(View.INVISIBLE);
             }
         });
 
