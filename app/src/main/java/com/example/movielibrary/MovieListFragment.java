@@ -60,6 +60,8 @@ public class MovieListFragment extends Fragment {
                         isLoading = true;
                         isSearch = true;
                         adapter.clear();
+                        //TODO: enlever la page info et mettre à la place un xml qui affiche aucun film sélectionné
+                        adapter.updateSelectedAtNull();
                         textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search_cancel));
                     }
                 } else {
@@ -96,6 +98,8 @@ public class MovieListFragment extends Fragment {
 
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
+            // TODO: si film est vide afficher un fragments avec un message d'information
+
             if (movies != localDataset) {
                 adapter.addAll(movies);
                 localDataset = movies;

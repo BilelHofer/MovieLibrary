@@ -54,6 +54,8 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
                     if (getAdapterPosition() == RecyclerView.NO_POSITION) return;
 
                     updateSelected();
+
+                    //TODO: ferme le clavier
                 }
             });
 
@@ -150,5 +152,13 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
     public void clear() {
         localDataSet.clear();
         notifyDataSetChanged();
+    }
+
+    public void updateSelectedAtNull() {
+        notifyItemChanged(selected_position);
+        selected_position = -1;
+        notifyItemChanged(selected_position);
+
+        pageViewModel.setMovie(null);
     }
 }
