@@ -1,6 +1,5 @@
 package com.example.movielibrary;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -8,12 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -32,7 +30,7 @@ public class MovieListFragment extends Fragment {
     private int actualPageLoaded = 1;
     private TextInputLayout textInputLayout;
     private boolean isLoading = false;
-    private boolean isSearch = false;
+    private boolean needResetIcon = false;
     private LinearProgressIndicator progressIndicator;
 
     private RelativeLayout noMovieFoundLayout;
@@ -62,7 +60,7 @@ public class MovieListFragment extends Fragment {
         });
         textInputLayout.setEndIconOnClickListener(v -> {
             noMovieFoundLayout.setVisibility(View.GONE);
-            if (isSearch) {
+            if (needResetIcon) {
                 resetSearch();
             } else {
                 actualPageLoaded = 1;
@@ -71,7 +69,7 @@ public class MovieListFragment extends Fragment {
                         progressIndicator.setVisibility(View.VISIBLE);
                         MovieAPIView.searchMovie(actualPageLoaded, textInputLayout.getEditText().getText().toString(), pageViewModel);
                         isLoading = true;
-                        isSearch = true;
+                        needResetIcon = true;
                         adapter.clear();
                         //TODO: enlever la page info et mettre à la place un xml qui affiche aucun film sélectionné
                         adapter.updateSelectedAtNull();
@@ -82,6 +80,22 @@ public class MovieListFragment extends Fragment {
                 }
             }
         });
+
+        //TODO: Supprime la query a la recherhce fix
+        textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {}
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search));
+                needResetIcon = false;
+            }
+        });
+
 
         // Création de la dataset pour le recycleView
         adapter = new MovieListAdapter(localDataset, pageViewModel, dbHelper);
@@ -145,7 +159,7 @@ public class MovieListFragment extends Fragment {
         adapter.clear();
         progressIndicator.setVisibility(View.VISIBLE);
         loadMovie();
-        isSearch = false;
+        needResetIcon = false;
         textInputLayout.getEditText().setText("");
         textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search));
     }
