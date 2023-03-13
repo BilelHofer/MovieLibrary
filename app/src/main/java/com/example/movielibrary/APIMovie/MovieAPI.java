@@ -52,4 +52,11 @@ public interface MovieAPI {
             @Query("query") String query,
             @Query("language") String language
     );
+
+    // Récupère les genres de films
+    @GET("genre/movie/list")
+    Call<GenresResult> getGenres(
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
 }

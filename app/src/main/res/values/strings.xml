@@ -23,5 +23,6 @@
     <string name="close_menu">Fermer le menu</string>
     <string name="parameter_year">Between</string>
     <string name="label_only_like">Seulement les films aimé</string>
+    <string name="parameter_all">Tous</string>
 
 </resources>

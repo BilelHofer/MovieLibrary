@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.movielibrary.APIMovie.Actor;
 import com.example.movielibrary.APIMovie.BasicMovie;
+import com.example.movielibrary.APIMovie.Genre;
 import com.example.movielibrary.APIMovie.Movie;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class PageViewModel extends ViewModel {
     private MutableLiveData<Boolean> mNeedUpdate = new MutableLiveData<>();
 
     private MutableLiveData<Boolean> mMenuOpen = new MutableLiveData<>();
+
+    private MutableLiveData<Genre[]> mGenreList = new MutableLiveData<>();
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -90,5 +93,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getMenuOpen() {
         return mMenuOpen;
+    }
+
+    public void setGenreList(Genre[] genreList) {
+        mGenreList.setValue(genreList);
+    }
+
+    public MutableLiveData<Genre[]> getGenreList() {
+        return mGenreList;
     }
 }

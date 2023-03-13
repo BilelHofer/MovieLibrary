@@ -1,5 +1,7 @@
 package com.example.movielibrary.APIMovie;
 
+import android.util.Log;
+
 import com.example.movielibrary.PageViewModel;
 
 import java.util.ArrayList;
@@ -168,6 +170,41 @@ public class MovieAPIView {
 
             @Override
             public void onFailure(Call<MovieResult> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Méthode qui permet de récupérer les genres de films
+     * @param pageViewModel le pageViewModel
+     */
+    public static void getGenres(PageViewModel pageViewModel) {
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les genres
+        Call<GenresResult> call = movieApi.getGenres(API_KEY, pageViewModel.getLanguage());
+
+        call.enqueue(new Callback<GenresResult>() {
+            @Override
+            public void onResponse(Call<GenresResult> call, retrofit2.Response<GenresResult> response) {
+                if (response.isSuccessful()) {
+                    Genre[] genres = response.body().getGenres();
+
+                    // On ajoute le dataset à la pageViewModel
+                    pageViewModel.setGenreList(genres);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GenresResult> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });
