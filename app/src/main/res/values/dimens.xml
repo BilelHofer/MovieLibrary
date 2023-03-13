@@ -13,4 +13,8 @@
     <dimen name="info_text_date_size">15sp</dimen>
     <dimen name="info_date_marginEnd">20dp</dimen>
     <dimen name="info_w600_marginStart">20dp</dimen>
+    <dimen name="parameter_text_size">20sp</dimen>
+    <dimen name="parameter_year_margin">40dp</dimen>
+    <dimen name="genre_box">120dp</dimen>
+    <dimen name="genre_box_min">110dp</dimen>
 </resources>

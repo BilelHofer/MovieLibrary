@@ -126,7 +126,7 @@
 
                 <TextView
                         android:id="@+id/info_movie_genre_1"
-                        android:layout_width="120dp"
+                        android:layout_width="@dimen/genre_box"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_below="@id/info_movie_overview"
@@ -136,7 +136,7 @@
                         android:padding="20dp"/>
                 <TextView
                         android:id="@+id/info_movie_genre_2"
-                        android:layout_width="120dp"
+                        android:layout_width="@dimen/genre_box"
                         android:layout_height="wrap_content"
                         android:layout_below="@id/info_movie_overview"
                         android:layout_centerHorizontal="true"
@@ -145,7 +145,7 @@
                         android:padding="20dp"/>
                 <TextView
                         android:id="@+id/info_movie_genre_3"
-                        android:layout_width="120dp"
+                        android:layout_width="@dimen/genre_box"
                         android:layout_height="wrap_content"
                         android:layout_marginEnd="20dp"
                         android:layout_below="@id/info_movie_overview"

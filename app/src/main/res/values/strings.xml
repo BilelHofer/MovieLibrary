@@ -21,5 +21,7 @@
     <string name="list_no_movie_found">Aucun film trouvé</string>
     <string name="info_no_movie_message">Aucun film sélectionné</string>
     <string name="close_menu">Fermer le menu</string>
+    <string name="parameter_year">Between</string>
+    <string name="label_only_like">Seulement les films aimé</string>
 
 </resources>

@@ -3,6 +3,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical"
         tools:context=".DrawerMenuFragment">
 
@@ -14,4 +15,108 @@
             android:src="@drawable/ic_menu_close"
             android:contentDescription="@string/close_menu"/>
 
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
+            <TextView
+                android:id="@+id/parameter_first_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/parameter_text_size"
+                android:layout_marginLeft="@dimen/parameter_year_margin"
+                android:text="1874"/>
+
+            <TextView
+                android:id="@+id/parameter_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                android:text="@string/parameter_year"
+                android:textSize="@dimen/parameter_text_size" />
+        <TextView
+                android:id="@+id/parameter_second_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:textSize="@dimen/parameter_text_size"
+                android:paddingEnd="@dimen/parameter_year_margin"
+                android:text="2023"/>
+
+        <!-- TODO disable label in code -->
+        <com.google.android.material.slider.RangeSlider
+            style="@style/Widget.App.Slider"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+            android:valueFrom="1874"
+            android:valueTo="2023"
+            android:layout_below="@id/parameter_first_year"
+            app:values="@array/initial_slider_values"
+            android:stepSize="1"/>
+    </RelativeLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center">
+        <!--TODO: Creation de sont prope radio button /
+        ajouter gridlayout et poru chaque button mettre dans une liste
+         squand selecion dés selecte tous les autre -->
+        <RadioGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <GridLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:columnCount="3">
+            <RadioButton
+                android:layout_width="@dimen/genre_box_min"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_margin="5dp"
+                android:textColor="@color/white"
+                android:text="All"/>
+            <RadioButton
+                android:layout_width="@dimen/genre_box_min"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_margin="5dp"
+                android:textColor="@color/white"
+                android:text="All"/>
+            <RadioButton
+                android:layout_width="@dimen/genre_box_min"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_margin="5dp"
+                android:textColor="@color/white"
+                android:text="All"/>
+            <RadioButton
+                android:layout_width="@dimen/genre_box_min"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:button="@android:color/transparent"
+                android:background="@drawable/radio_selector"
+                android:layout_margin="5dp"
+                android:textColor="@color/white"
+                android:text="All"/>
+            </GridLayout>
+        </RadioGroup>
+    </LinearLayout>
+
+    <CheckBox
+            android:id="@+id/checkbox_only_like"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:buttonTint="@color/white"
+            android:text="@string/label_only_like"/>
 </LinearLayout>

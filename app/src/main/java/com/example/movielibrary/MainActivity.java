@@ -38,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
             pageViewModel.setLanguage("en-US");
         }
 
+        //TODO: faire que le clic suivre ok sur le clavier applique la recherche
+
         // Modifi le fonctionnement de l'application en fonction de la taille de l'écran
         if (getResources().getConfiguration().screenWidthDp < 600) {
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
@@ -60,13 +62,12 @@ public class MainActivity extends AppCompatActivity {
         // Listener pour fermer le clavier au choix d'un film
         pageViewModel.getNeedCloseKeyboard().observe(this, needCloseKeyboard -> {
             if (needCloseKeyboard) {
-                // Ferme le clavier
-                View view = this.getCurrentFocus();
-                if (view != null) {
-                    InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-                    imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-                }
+                closeKeyboard();
             }
+        });
+
+        pageViewModel.getMenuOpen().observe(this, menuOpen -> {
+            closeKeyboard();
         });
     }
 
@@ -82,6 +83,14 @@ public class MainActivity extends AppCompatActivity {
             pageViewModel.setMovie(null);
         } else {
             super.onBackPressed();
+        }
+    }
+
+    private void closeKeyboard() {
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
 }
