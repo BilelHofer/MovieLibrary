@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -41,6 +42,10 @@ public class MovieListFragment extends Fragment {
 
     private ObjectAnimator drawerAnimation;
 
+    private View menu;
+
+    private LinearLayout mainLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +61,9 @@ public class MovieListFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
-        View menu = view.findViewById(R.id.menu_drawer);
+        mainLayout = view.findViewById(R.id.movie_list_layout);
+
+        menu = view.findViewById(R.id.menu_drawer);
 
         // Met à jour la couleur de fond du menu
         menu.setBackground(getResources().getDrawable(R.drawable.app_background));
@@ -72,8 +79,6 @@ public class MovieListFragment extends Fragment {
                 drawerAnimation.start();
 
                 drawerAnimation.setDuration(800);
-
-                pageViewModel.setMenuOpen(false);
             }
         });
 
@@ -81,16 +86,11 @@ public class MovieListFragment extends Fragment {
         progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
         noMovieFoundLayout = view.findViewById(R.id.no_result_layout);
 
-        //TODO faire en sorte que quand le menu est ouvert les autre élément ne soit pas cliquable
+        pageViewModel.getMenuOpen().observe(getViewLifecycleOwner(), this::manageDrawer);
+
         // Menu Burger
         textInputLayout.setStartIconOnClickListener(v -> {
-            float translationX = !pageViewModel.getMenuOpen() ? 0 : -menu.getHeight();
-            pageViewModel.setMenuOpen(!pageViewModel.getMenuOpen());
-
-            drawerAnimation = ObjectAnimator.ofFloat(menu, "translationX", translationX);
-            drawerAnimation.start();
-
-
+            pageViewModel.setMenuOpen(true);
         });
         // Recherche
         textInputLayout.setEndIconOnClickListener(v -> {
@@ -195,5 +195,15 @@ public class MovieListFragment extends Fragment {
         needResetIcon = false;
         textInputLayout.getEditText().setText("");
         textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search));
+    }
+
+    private void manageDrawer(boolean needOpen) {
+        float translationX =  needOpen ? 0 : -menu.getHeight();
+
+        drawerAnimation = ObjectAnimator.ofFloat(menu, "translationX", translationX);
+        drawerAnimation.start();
+
+        drawerAnimation = ObjectAnimator.ofFloat(mainLayout, "translationX", translationX == 0 ? menu.getHeight() : 0);
+        drawerAnimation.start();
     }
 }

@@ -27,7 +27,7 @@ public class PageViewModel extends ViewModel {
 
     private MutableLiveData<Boolean> mNeedUpdate = new MutableLiveData<>();
 
-    private Boolean mMenuOpen = false;
+    private MutableLiveData<Boolean> mMenuOpen = new MutableLiveData<>();
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -85,10 +85,10 @@ public class PageViewModel extends ViewModel {
     }
 
     public void setMenuOpen(Boolean menuOpen) {
-        mMenuOpen = menuOpen;
+        mMenuOpen.setValue(menuOpen);
     }
 
-    public Boolean getMenuOpen() {
+    public MutableLiveData<Boolean> getMenuOpen() {
         return mMenuOpen;
     }
 }
