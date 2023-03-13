@@ -19,5 +19,6 @@
     <string name="edittext_content_description_start_icon">icon menu burger</string>
     <string name="edittext_content_description_end_icon">icon for search</string>
     <string name="list_no_movie_found">Aucun film trouvé</string>
+    <string name="info_no_movie_message">Aucun film sélectionné</string>
 
 </resources>

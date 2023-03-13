@@ -43,9 +43,7 @@ public class MainActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.SMALL);
-        } else if (getResources().getConfiguration().screenWidthDp < 1200) {
-            pageViewModel.setScreenSize(PageViewModel.ScreenSize.MEDIUM);
-        } else {
+        } else if (getResources().getConfiguration().screenWidthDp > 1200) {
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.LARGE);
         }
 

@@ -13,7 +13,6 @@ public class PageViewModel extends ViewModel {
 
     public enum ScreenSize {
         SMALL,
-        MEDIUM,
         LARGE
     }
     private MutableLiveData<ArrayList<BasicMovie>> mMovieList = new MutableLiveData<>();

@@ -17,7 +17,6 @@
                     android:id="@+id/info_movie_poster"
                     android:layout_width="300dp"
                     android:layout_height="450dp"
-                    android:src="@drawable/poster_test"
                     android:background="@drawable/border_image"
                     android:layout_centerHorizontal="true"
                     android:padding="1dp"

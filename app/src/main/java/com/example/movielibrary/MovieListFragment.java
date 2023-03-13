@@ -54,7 +54,7 @@ public class MovieListFragment extends Fragment {
         progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
         noMovieFoundLayout = view.findViewById(R.id.no_result_layout);
 
-        // TODO: Faire quand quand on modifie le texte de la barre de recherche on r'affiche l'icon et le fonctionnenemnt pour la recherche
+        // TODO clic sur la croix n'a pas reset le film sélectionné
         textInputLayout.setStartIconOnClickListener(v -> {
             //TODO: open menu burger
         });
@@ -71,7 +71,6 @@ public class MovieListFragment extends Fragment {
                         isLoading = true;
                         needResetIcon = true;
                         adapter.clear();
-                        //TODO: enlever la page info et mettre à la place un xml qui affiche aucun film sélectionné
                         adapter.updateSelectedAtNull();
                         textInputLayout.setEndIconDrawable(getResources().getDrawable(R.drawable.ic_search_cancel));
                     }
@@ -81,7 +80,6 @@ public class MovieListFragment extends Fragment {
             }
         });
 
-        //TODO: Supprime la query a la recherhce fix
         textInputLayout.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -125,7 +123,6 @@ public class MovieListFragment extends Fragment {
 
         // Mise à jour de l'adapter
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
-            // TODO: si film est vide afficher un fragments avec un message d'information
 
             // Si la liste de film est vide, on affiche un message d'erreur
             if (movies.size() == 0) {
@@ -157,6 +154,7 @@ public class MovieListFragment extends Fragment {
     private void resetSearch() {
         actualPageLoaded = 1;
         adapter.clear();
+        adapter.updateSelectedAtNull();
         progressIndicator.setVisibility(View.VISIBLE);
         loadMovie();
         needResetIcon = false;

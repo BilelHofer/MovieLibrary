@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -27,6 +29,9 @@ public class MovieInformationFragment extends Fragment {
     private ImageView btn_like;
     private DatabaseHelper dbHelper;
 
+    private TextView noMovieMessage;
+    private LinearLayout infoLayout;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,9 @@ public class MovieInformationFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_movie_information, container, false);
 
         ScrollView scrollView = view.findViewById(R.id.info_main_scrollview);
+        noMovieMessage = view.findViewById(R.id.info_no_movie_message);
+        infoLayout = view.findViewById(R.id.info_panel);
+        infoLayout.setVisibility(View.INVISIBLE);
 
         // Gère le bouton like pour la version mobile
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
@@ -77,8 +85,14 @@ public class MovieInformationFragment extends Fragment {
                         btn_like.setImageResource(R.drawable.like_null);
                     }
                     scrollView.smoothScrollTo(0, 0);
+                } else {
+                    noMovieMessage.setVisibility(View.INVISIBLE);
+                    infoLayout.setVisibility(View.VISIBLE);
                 }
                 updateMovieInformation(view, movie);
+            } else if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.LARGE) {
+                noMovieMessage.setVisibility(View.VISIBLE);
+                infoLayout.setVisibility(View.INVISIBLE);
             }
         });
 

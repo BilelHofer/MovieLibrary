@@ -5,8 +5,17 @@
         android:layout_height="match_parent"
         tools:context=".MovieInformationFragment">
 
+    <TextView
+        android:id="@+id/info_no_movie_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/info_no_movie_message"
+        android:textSize="30dp"
+        android:textStyle="bold"/>
+
     <LinearLayout
-            android:id="@+id/info_left_panel"
+            android:id="@+id/info_panel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -19,7 +28,6 @@
                     android:id="@+id/info_movie_poster"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/poster_test"
                     android:background="@drawable/border_image"
                     android:padding="1dp"
                     android:layout_marginTop="20dp"
@@ -32,8 +40,7 @@
                     android:layout_below="@id/info_movie_poster"
                     android:layout_margin="10dp"
                     android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:text="aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"/>
+                    android:textStyle="bold"/>
 
             <TextView
                     android:id="@+id/info_movie_time"
@@ -41,8 +48,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/info_movie_title"
                     android:layout_marginStart="10dp"
-                    android:textSize="15sp"
-                    android:text="1h20"/>
+                    android:textSize="15sp"/>
             <TextView
                     android:id="@+id/info_movie_date"
                     android:layout_width="wrap_content"
@@ -50,8 +56,7 @@
                     android:layout_below="@id/info_movie_title"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="@dimen/info_date_marginEnd"
-                    android:textSize="@dimen/info_text_date_size"
-                    android:text="Octobre 1988"/>
+                    android:textSize="@dimen/info_text_date_size"/>
 
             <LinearLayout
                     android:id="@+id/info_movie_stars"
@@ -117,8 +122,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_gravity="center_horizontal|center"
                         android:layout_below="@id/info_movie_overview_title"
-                        android:layout_marginBottom="@dimen/summary_marginBottom"
-                        android:text="Le lorem ipsum est, en imprimerie, une suite de mots sans signification utilisée à titre provisoire pour calibrer une mise en page, le texte définitif venant remplacer le faux-texte dès qu'il est prêt ou que la mise en page est achevée. Généralement, on utilise un texte en faux latin, le Lorem ipsum ou Lipsum."/>
+                        android:layout_marginBottom="@dimen/summary_marginBottom" />
 
                 <TextView
                         android:id="@+id/info_movie_genre_1"
@@ -129,8 +133,7 @@
                         android:layout_alignParentStart="true"
                         android:gravity="center"
                         android:background="@drawable/genre_background"
-                        android:padding="20dp"
-                        android:text="Action"/>
+                        android:padding="20dp"/>
                 <TextView
                         android:id="@+id/info_movie_genre_2"
                         android:layout_width="120dp"
@@ -139,8 +142,7 @@
                         android:layout_centerHorizontal="true"
                         android:gravity="center"
                         android:background="@drawable/genre_background"
-                        android:padding="20dp"
-                        android:text="Fantasy"/>
+                        android:padding="20dp"/>
                 <TextView
                         android:id="@+id/info_movie_genre_3"
                         android:layout_width="120dp"
@@ -150,8 +152,7 @@
                         android:layout_alignParentEnd="true"
                         android:gravity="center"
                         android:background="@drawable/genre_background"
-                        android:padding="20dp"
-                        android:text="Fantasy"/>
+                        android:padding="20dp"/>
 
                 <TextView
                         android:id="@+id/info_movie_actor_title"
