@@ -49,7 +49,9 @@ public class MovieInformationFragment extends Fragment {
         ScrollView scrollView = view.findViewById(R.id.info_main_scrollview);
         noMovieMessage = view.findViewById(R.id.info_no_movie_message);
         infoLayout = view.findViewById(R.id.info_panel);
-        infoLayout.setVisibility(View.INVISIBLE);
+
+        if (infoLayout != null)
+            infoLayout.setVisibility(View.INVISIBLE);
 
         // Gère le bouton like pour la version mobile
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
