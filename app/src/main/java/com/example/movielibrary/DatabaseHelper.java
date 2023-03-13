@@ -95,6 +95,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return cursor.getCount();
     }
 
+    /**
+     * Met à jour le like d'un film
+     */
     public boolean updateLike(int movieId) {
         boolean movieLiked = false;
 

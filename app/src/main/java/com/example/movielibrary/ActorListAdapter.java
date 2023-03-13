@@ -25,10 +25,7 @@ import com.squareup.picasso.Picasso;
 public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.ListViewHolder> {
     private ArrayList<Actor> localDataSet;
 
-    /**
-     * Provide a reference to the type of views that you are using
-     * (custom ViewHolder)
-     */
+
     public class ListViewHolder extends RecyclerView.ViewHolder {
         private final TextView actorName;
         private final TextView actorName2;

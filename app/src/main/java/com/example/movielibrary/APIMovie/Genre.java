@@ -1,5 +1,8 @@
 package com.example.movielibrary.APIMovie;
 
+/**
+ * Class qui représente un genre
+ */
 public class Genre {
     private Integer id;
     private String name;

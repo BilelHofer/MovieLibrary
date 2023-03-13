@@ -4,6 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
+/**
+ * Class qui représente les résultats d'une recherche de film
+ */
 public class MovieResult {
     @SerializedName("page")
     private int page;

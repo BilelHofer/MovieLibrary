@@ -2,6 +2,9 @@ package com.example.movielibrary.APIMovie;
 
 import java.util.List;
 
+/**
+ * Class qui représente les informations d'un film complet
+ */
 public class Movie {
     private Boolean adult;
     private List<Genre> genres;

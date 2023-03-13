@@ -2,6 +2,9 @@ package com.example.movielibrary.APIMovie;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class qui représente les informations cruciales d'un film
+ */
 public class BasicMovie {
     @SerializedName("id")
     private int id;

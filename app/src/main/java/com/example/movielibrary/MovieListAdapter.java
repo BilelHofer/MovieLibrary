@@ -138,22 +138,36 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
         return localDataSet.size();
     }
 
+    /**
+     * Permet d'ajouter une liste de film à la liste
+     * @param movies La liste de film à ajouter
+     */
     public void addAll(ArrayList<BasicMovie> movies) {
         localDataSet.addAll(movies);
 
         notifyDataSetChanged();
     }
 
+    /**
+     * Permet de mettre à jour le like d'un film
+     * @param movieId L'id du film
+     */
     protected void updateLike(int movieId) {
         dbHelper.updateLike(movieId);
         notifyDataSetChanged();
     }
 
+    /**
+     * Permet de vider la liste
+     */
     public void clear() {
         localDataSet.clear();
         notifyDataSetChanged();
     }
 
+    /**
+     * Permet de mettre à jour la selection à null
+     */
     public void updateSelectedAtNull() {
         notifyItemChanged(selected_position);
         selected_position = -1;

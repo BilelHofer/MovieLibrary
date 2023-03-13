@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gère le bouton retour
+     */
     @Override
     public void onBackPressed() {
         Log.d("test", "onBackPressed: " + pageViewModel.getScreenSize());

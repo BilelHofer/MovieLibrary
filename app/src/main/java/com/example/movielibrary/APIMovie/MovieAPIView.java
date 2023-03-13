@@ -10,10 +10,18 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
+/**
+ * Class qui permet de géré l'API
+ */
 public class MovieAPIView {
     public static final String BASE_URL = "https://api.themoviedb.org/3/";
     public static final String API_KEY = "d8ca27475e9a87d4db474ea21042e5af";
 
+    /**
+     * Méthode qui permet de récupérer les films
+     * @param page la page à récupérer
+     * @param pageViewModel le pageViewModel
+     */
     public static void getMoviePages(int page, PageViewModel pageViewModel) {
         ArrayList<BasicMovie> dataset = new ArrayList<>();
 
@@ -51,6 +59,11 @@ public class MovieAPIView {
         });
     }
 
+    /**
+     * Méthode qui permet de récupérer le film en particulier
+     * @param movieId l'id du film à récupérer
+     * @param pageViewModel le pageViewModel
+     */
     public static void getMovie(int movieId, PageViewModel pageViewModel) {
         // Créez une instance de Retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -82,6 +95,11 @@ public class MovieAPIView {
         });
     }
 
+    /**
+     * Méthode qui permet de récupérer les acteurs d'un film
+     * @param movieId l'id du film à récupérer
+     * @param pageViewModel le pageViewModel
+     */
     public static void getMovieCredits(int movieId, PageViewModel pageViewModel) {
         // Créez une instance de Retrofit
         Retrofit retrofit = new Retrofit.Builder()
@@ -113,6 +131,12 @@ public class MovieAPIView {
         });
     }
 
+    /**
+     * Méthode qui permet de récupérer les films en fonction d'une recherche
+     * @param page la page à récupérer
+     * @param query la recherche
+     * @param pageViewModel le pageViewModel
+     */
     public static void searchMovie(int page, String query, PageViewModel pageViewModel) {
         ArrayList<BasicMovie> dataset = new ArrayList<>();
 

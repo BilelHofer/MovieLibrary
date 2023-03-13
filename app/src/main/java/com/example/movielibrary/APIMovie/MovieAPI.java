@@ -6,6 +6,9 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
+/**
+ * Interface qui représente les différentes requêtes à l'API
+ */
 public interface MovieAPI {
     // Récupère les films populaires
     @GET("movie/popular")

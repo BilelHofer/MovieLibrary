@@ -2,6 +2,9 @@ package com.example.movielibrary.APIMovie;
 
 import com.google.gson.annotations.SerializedName;
 
+/**
+ * Class qui représente un acteur
+ */
 public class Actor {
     @SerializedName("name")
     private String name;

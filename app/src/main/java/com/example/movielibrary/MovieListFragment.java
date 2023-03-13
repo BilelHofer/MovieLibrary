@@ -54,7 +54,6 @@ public class MovieListFragment extends Fragment {
         progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
         noMovieFoundLayout = view.findViewById(R.id.no_result_layout);
 
-        // TODO clic sur la croix n'a pas reset le film sélectionné
         textInputLayout.setStartIconOnClickListener(v -> {
             //TODO: open menu burger
         });
