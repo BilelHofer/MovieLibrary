@@ -1,5 +1,7 @@
 package com.example.movielibrary;
 
+import android.animation.ObjectAnimator;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -9,9 +11,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
@@ -35,6 +39,8 @@ public class MovieListFragment extends Fragment {
 
     private RelativeLayout noMovieFoundLayout;
 
+    private ObjectAnimator drawerAnimation;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,13 +56,43 @@ public class MovieListFragment extends Fragment {
 
         RecyclerView recyclerView = view.findViewById(R.id.movie_list);
 
+        View menu = view.findViewById(R.id.menu_drawer);
+
+        // Met à jour la couleur de fond du menu
+        menu.setBackground(getResources().getDrawable(R.drawable.app_background));
+
+        menu.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                menu.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+
+                // Ferme le menu
+                drawerAnimation = ObjectAnimator.ofFloat(menu, "translationX", -menu.getHeight());
+                drawerAnimation.setDuration(0);
+                drawerAnimation.start();
+
+                drawerAnimation.setDuration(800);
+
+                pageViewModel.setMenuOpen(false);
+            }
+        });
+
         textInputLayout = view.findViewById(R.id.movie_list_search_bar);
         progressIndicator = view.findViewById(R.id.movie_list_progress_bar);
         noMovieFoundLayout = view.findViewById(R.id.no_result_layout);
 
+        //TODO faire en sorte que quand le menu est ouvert les autre élément ne soit pas cliquable
+        // Menu Burger
         textInputLayout.setStartIconOnClickListener(v -> {
-            //TODO: open menu burger
+            float translationX = !pageViewModel.getMenuOpen() ? 0 : -menu.getHeight();
+            pageViewModel.setMenuOpen(!pageViewModel.getMenuOpen());
+
+            drawerAnimation = ObjectAnimator.ofFloat(menu, "translationX", translationX);
+            drawerAnimation.start();
+
+
         });
+        // Recherche
         textInputLayout.setEndIconOnClickListener(v -> {
             noMovieFoundLayout.setVisibility(View.GONE);
             if (needResetIcon) {

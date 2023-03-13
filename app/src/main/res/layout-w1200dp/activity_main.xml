@@ -12,7 +12,7 @@
     <androidx.fragment.app.FragmentContainerView
             android:id="@+id/main_movie_list_fragment_container"
             android:layout_width="375dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:name="com.example.movielibrary.MovieListFragment"/>
 
     <ImageView

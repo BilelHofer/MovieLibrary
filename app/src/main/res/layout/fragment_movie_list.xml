@@ -1,56 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-    <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/movie_list_search_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="18dp"
-            android:paddingStart="18dp"
-            android:layout_marginBottom="10dp"
-            app:startIconDrawable="@drawable/ic_menu"
-            app:startIconContentDescription="@string/edittext_content_description_start_icon"
-            app:endIconMode="custom"
-            app:endIconDrawable="@drawable/ic_search"
-            app:endIconContentDescription="@string/edittext_content_description_end_icon">
+        android:layout_height="match_parent">
 
-        <com.google.android.material.textfield.TextInputEditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:maxLines="1"
-                android:background="@drawable/movie_list_edittext_background"/>
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.divider.MaterialDivider
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:dividerInsetStart="12dp"
-            app:dividerInsetEnd="12dp"/>
-    <com.google.android.material.progressindicator.LinearProgressIndicator
-            android:id="@+id/movie_list_progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingEnd="12dp"
-            android:paddingStart="12dp"
-            android:indeterminate="true"
-            app:trackThickness="2dp"/>
-
-
-    <include
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            layout="@layout/no_result" />
-
-    <androidx.recyclerview.widget.RecyclerView
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/movie_list"
-            app:layoutManager="LinearLayoutManager"
-            tools:context=".MovieListFragment">
-    </androidx.recyclerview.widget.RecyclerView>
-</LinearLayout>
+            android:orientation="vertical">
+        <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/movie_list_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="18dp"
+                android:paddingStart="18dp"
+                android:layout_marginBottom="10dp"
+                app:startIconDrawable="@drawable/ic_menu"
+                app:startIconContentDescription="@string/edittext_content_description_start_icon"
+                app:endIconMode="custom"
+                app:endIconDrawable="@drawable/ic_search"
+                app:endIconContentDescription="@string/edittext_content_description_end_icon">
+
+            <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:background="@drawable/movie_list_edittext_background"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.divider.MaterialDivider
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:dividerInsetStart="12dp"
+                app:dividerInsetEnd="12dp"/>
+        <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/movie_list_progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingEnd="12dp"
+                android:paddingStart="12dp"
+                android:indeterminate="true"
+                app:trackThickness="2dp"/>
+
+
+        <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/no_result" />
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/movie_list"
+                app:layoutManager="LinearLayoutManager"
+                tools:context=".MovieListFragment">
+        </androidx.recyclerview.widget.RecyclerView>
+    </LinearLayout>
+
+    <androidx.fragment.app.FragmentContainerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:name="com.example.movielibrary.DrawerMenuFragment"
+            android:id="@+id/menu_drawer" />
+</FrameLayout>

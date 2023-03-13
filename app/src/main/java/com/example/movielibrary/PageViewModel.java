@@ -26,6 +26,8 @@ public class PageViewModel extends ViewModel {
     private MutableLiveData<Boolean> mNeedCloseKeyboard = new MutableLiveData<>();
 
     private MutableLiveData<Boolean> mNeedUpdate = new MutableLiveData<>();
+
+    private Boolean mMenuOpen = false;
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -80,5 +82,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getNeedCloseKeyboard() {
         return mNeedCloseKeyboard;
+    }
+
+    public void setMenuOpen(Boolean menuOpen) {
+        mMenuOpen = menuOpen;
+    }
+
+    public Boolean getMenuOpen() {
+        return mMenuOpen;
     }
 }
