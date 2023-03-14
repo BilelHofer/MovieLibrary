@@ -151,10 +151,19 @@ public class MovieListFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if (!isLoading) {
-                    // Chargez la page suivante des données
-                    loadMovie();
-                    isLoading = true;
+                if(!recyclerView.canScrollVertically(1)) {
+
+                    Log.d("MovieListFragment", "Chargement de la page " + actualPageLoaded);
+                }
+
+                if (!recyclerView.canScrollVertically(1) && !isEndOfList) {
+                    if (!isLoading) {
+                        // Chargez la page suivante des données
+
+
+                        loadMovie();
+                        isLoading = true;
+                    }
                 }
             }
         });
@@ -193,7 +202,9 @@ public class MovieListFragment extends Fragment {
                 adapter.addAll(moviesToInsert);
                 localDataset = moviesToInsert;
 
-                if (actualPageLoaded <= pageViewModel.getTotalPages()) {
+                if (actualPageLoaded < pageViewModel.getTotalPages()) {
+                    actualPageLoaded++;
+                } else {
                     actualPageLoaded++;
                     isEndOfList = true;
                 }

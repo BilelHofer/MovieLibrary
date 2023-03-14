@@ -47,7 +47,7 @@ public class MovieAPIView {
                     MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
-                    //pageViewModel.setTotalPages(results.getTotalPages());
+                    pageViewModel.setTotalPages(results.getTotalPages());
 
                     dataset.addAll(movies);
 
@@ -163,7 +163,7 @@ public class MovieAPIView {
                     MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
-                    //pageViewModel.setTotalPages(results.getTotalPages());
+                    pageViewModel.setTotalPages(results.getTotalPages());
 
                     dataset.addAll(movies);
 
