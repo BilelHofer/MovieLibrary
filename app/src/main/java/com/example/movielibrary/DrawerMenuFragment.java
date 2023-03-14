@@ -44,10 +44,10 @@ public class DrawerMenuFragment extends Fragment {
     private CheckBox onlyLikedCheckBox;
 
     private Button applyButton;
-    private int minYear;
-    private int maxYear;
+    private int minYear = 1874;
+    private int maxYear = 2023;
 
-    private int selectedGenreId = 0;
+    private int selectedGenreId = -1;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +70,7 @@ public class DrawerMenuFragment extends Fragment {
         genreGridLayout = view.findViewById(R.id.genre_grid);
 
         RadioButton radioButtonAll = view.findViewById(R.id.genre_all);
+        radioButtonAll.setChecked(true);
         genreRadioButtons.add(radioButtonAll);
 
         onlyLikedCheckBox = view.findViewById(R.id.checkbox_only_like);
@@ -81,7 +82,12 @@ public class DrawerMenuFragment extends Fragment {
             public void onClick(View v) {
                 pageViewModel.setMenuOpen(false);
                 pageViewModel.setIsOnlyLiked(onlyLikedCheckBox.isChecked());
-                //TODO: faire la requete à l'api
+                pageViewModel.setIsOnFilter(true);
+
+                MovieAPIView.getMoviesWithFilter(1, selectedGenreId, minYear, maxYear, pageViewModel);
+                pageViewModel.setFilterGenreId(selectedGenreId);
+                pageViewModel.setFilterYear1(minYear);
+                pageViewModel.setFilterYear2(maxYear);
             }
         });
 
@@ -148,7 +154,6 @@ public class DrawerMenuFragment extends Fragment {
         return view;
     }
 
-
     /**
      * Pour chaque radio button, on ajoute un listener qui déselectionne les autres
      */
@@ -163,7 +168,10 @@ public class DrawerMenuFragment extends Fragment {
                         }
                     }
 
-                    selectedGenreId = v.getId();
+                    if (v.getId() == R.id.genre_all)
+                        selectedGenreId = -1;
+                    else
+                        selectedGenreId = v.getId();
                 }
             });
         }
