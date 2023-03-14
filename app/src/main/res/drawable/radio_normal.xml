@@ -15,14 +15,14 @@
             <size android:width="110dp"/>
             <size android:height="48dp"/>
             <gradient
-                    android:startColor="#9C1313"
-                    android:endColor="#AF0202"
+                    android:startColor="#2E0808"
+                    android:endColor="#420606"
                     android:angle="45"
                     android:type="linear"/>
             <corners android:radius="5dp" />
             <stroke
                     android:width="0.2dp"
-                    android:color="#FFFFFF" />
+                    android:color="#b4b4b4" />
         </shape>
     </item>
 </layer-list>

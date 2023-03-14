@@ -31,6 +31,8 @@ public class PageViewModel extends ViewModel {
     private MutableLiveData<Boolean> mMenuOpen = new MutableLiveData<>();
 
     private MutableLiveData<Genre[]> mGenreList = new MutableLiveData<>();
+
+    private Boolean mIsOnlyLiked = false;
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -101,5 +103,13 @@ public class PageViewModel extends ViewModel {
 
     public MutableLiveData<Genre[]> getGenreList() {
         return mGenreList;
+    }
+
+    public void setIsOnlyLiked(Boolean isOnlyLiked) {
+        mIsOnlyLiked = isOnlyLiked;
+    }
+
+    public Boolean getIsOnlyLiked() {
+        return mIsOnlyLiked;
     }
 }

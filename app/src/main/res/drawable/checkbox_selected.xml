@@ -12,8 +12,6 @@
     <!-- Main Rectangle -->
     <item android:bottom="1px" android:gravity="center">
         <shape  android:shape="rectangle">
-            <size android:width="110dp"/>
-            <size android:height="48dp"/>
             <gradient
                     android:startColor="#9C1313"
                     android:endColor="#AF0202"

@@ -43,7 +43,6 @@
                 android:paddingEnd="@dimen/parameter_year_margin"
                 android:text="2023"/>
 
-        <!-- TODO disable label in code -->
         <com.google.android.material.slider.RangeSlider
             style="@style/Widget.App.Slider"
                 android:id="@+id/parameter_year_slider"
@@ -53,6 +52,7 @@
             android:valueTo="2023"
             android:layout_below="@id/parameter_first_year"
             app:values="@array/initial_slider_values"
+                app:labelBehavior="gone"
             />
     </RelativeLayout>
 
@@ -61,24 +61,23 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
-        <!--TODO: Creation de sont prope radio button /
-        ajouter gridlayout et poru chaque button mettre dans une liste
-         squand selecion dés selecte tous les autre -->
         <RadioGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <GridLayout
+                    android:id="@+id/genre_grid"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:columnCount="3">
             <RadioButton
-                android:layout_width="@dimen/genre_box_min"
+                    android:id="@+id/genre_all"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:button="@android:color/transparent"
                 android:background="@drawable/radio_selector"
-                android:layout_margin="5dp"
+                android:layout_margin="4dp"
                 android:textColor="@color/white"
                 android:text="@string/parameter_all"/>
             </GridLayout>
@@ -87,14 +86,20 @@
 
     <CheckBox
             android:id="@+id/checkbox_only_like"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:button="@android:color/transparent"
+            android:background="@drawable/checkbox_selector"
+            android:padding="10dp"
+            android:layout_marginTop="20dp"
             android:layout_marginStart="10dp"
             android:textColor="@color/white"
             android:buttonTint="@color/white"
             android:text="@string/label_only_like"/>
 
     <Button
+            android:id="@+id/button_apply"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

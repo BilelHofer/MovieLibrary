@@ -1,22 +1,34 @@
 package com.example.movielibrary;
 
+import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.provider.MediaStore;
+import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.Xml;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.example.movielibrary.APIMovie.Genre;
 import com.example.movielibrary.APIMovie.MovieAPIView;
 import com.google.android.material.slider.LabelFormatter;
 import com.google.android.material.slider.RangeSlider;
+
+import java.util.ArrayList;
 
 public class DrawerMenuFragment extends Fragment {
 
@@ -26,8 +38,16 @@ public class DrawerMenuFragment extends Fragment {
     private TextView textviewMinYear;
     private TextView textviewMaxYear;
 
+    private ArrayList<RadioButton> genreRadioButtons = new ArrayList<>();
+    private GridLayout genreGridLayout;
+
+    private CheckBox onlyLikedCheckBox;
+
+    private Button applyButton;
     private int minYear;
     private int maxYear;
+
+    private int selectedGenreId = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,9 +64,26 @@ public class DrawerMenuFragment extends Fragment {
         closeButton = view.findViewById(R.id.drawer_close);
 
         dateSlider = view.findViewById(R.id.parameter_year_slider);
-        dateSlider.setLabelBehavior(LabelFormatter.LABEL_GONE);
         textviewMinYear = view.findViewById(R.id.parameter_first_year);
         textviewMaxYear = view.findViewById(R.id.parameter_second_year);
+
+        genreGridLayout = view.findViewById(R.id.genre_grid);
+
+        RadioButton radioButtonAll = view.findViewById(R.id.genre_all);
+        genreRadioButtons.add(radioButtonAll);
+
+        onlyLikedCheckBox = view.findViewById(R.id.checkbox_only_like);
+
+        applyButton = view.findViewById(R.id.button_apply);
+
+        applyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pageViewModel.setMenuOpen(false);
+                pageViewModel.setIsOnlyLiked(onlyLikedCheckBox.isChecked());
+                //TODO: faire la requete à l'api
+            }
+        });
 
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,16 +115,57 @@ public class DrawerMenuFragment extends Fragment {
         MovieAPIView.getGenres(pageViewModel);
 
         pageViewModel.getGenreList().observe(getViewLifecycleOwner(), genreList -> {
-            //TODO crée les radio boutons, les ajouter dans une liste et faire que quand on clique sur un bouton on déselectionne les autres
             for (Genre genre : genreList) {
-                Log.d("Genre", genre.getName());
+                RadioButton radioButton = new RadioButton(getContext());
+
+                // On change le style du bouton
+                radioButton.setButtonDrawable(null);
+                radioButton.setBackgroundResource(R.drawable.radio_selector);
+                radioButton.setTextColor(Color.WHITE);
+                radioButton.setGravity(Gravity.CENTER);
+
+                // Ajoute 5dp de margin
+                GridLayout.LayoutParams params = new GridLayout.LayoutParams();
+                params.setMargins(5, 5, 5, 5);
+                // Ajoute wrap_content
+                params.width = GridLayout.LayoutParams.WRAP_CONTENT;
+                params.height = GridLayout.LayoutParams.WRAP_CONTENT;
+
+                radioButton.setLayoutParams(params);
+
+                // On change le texte du bouton
+                radioButton.setText(genre.getName());
+
+                // On change l'id du bouton
+                radioButton.setId(genre.getId());
+
+                genreRadioButtons.add(radioButton);
+                genreGridLayout.addView(radioButton);
             }
+
+            initRadioButtons();
         });
-
-        //TODO mettre à jour le onlyLike
-
         return view;
     }
 
 
+    /**
+     * Pour chaque radio button, on ajoute un listener qui déselectionne les autres
+     */
+    private void initRadioButtons() {
+        for (RadioButton radioButton : genreRadioButtons) {
+            radioButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    for (RadioButton radioButton : genreRadioButtons) {
+                        if (radioButton.getId() != v.getId()) {
+                            radioButton.setChecked(false);
+                        }
+                    }
+
+                    selectedGenreId = v.getId();
+                }
+            });
+        }
+    }
 }
