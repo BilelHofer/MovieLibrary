@@ -19,6 +19,7 @@ import android.view.ViewTreeObserver;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
@@ -42,7 +43,12 @@ public class MovieListFragment extends Fragment {
 
     private ObjectAnimator drawerAnimation;
 
+    private Boolean onFilter = false;
+    private Boolean onSearch = false;
+
     private View menu;
+
+    private boolean isEndOfList = false;
 
     private LinearLayout mainLayout;
 
@@ -99,10 +105,14 @@ public class MovieListFragment extends Fragment {
                 resetSearch();
             } else {
                 actualPageLoaded = 1;
+                isEndOfList = false;
                 if (textInputLayout.getEditText().getText().toString().length() > 0) {
                     if (!isLoading) {
                         progressIndicator.setVisibility(View.VISIBLE);
                         MovieAPIView.searchMovie(actualPageLoaded, textInputLayout.getEditText().getText().toString(), pageViewModel);
+                        onSearch = true;
+                        onFilter = false;
+                        pageViewModel.setIsOnlyLiked(false);
                         isLoading = true;
                         needResetIcon = true;
                         adapter.clear();
@@ -160,22 +170,50 @@ public class MovieListFragment extends Fragment {
         pageViewModel.getMovieList().observe(requireActivity(), movies -> {
 
             // Si la liste de film est vide, on affiche un message d'erreur
-            if (movies.size() == 0) {
+            if (movies.size() == 0 && !isEndOfList) {
                 noMovieFoundLayout.setVisibility(View.VISIBLE);
             } else {
                 noMovieFoundLayout.setVisibility(View.GONE);
             }
 
             if (movies != localDataset) {
-                adapter.addAll(movies);
-                localDataset = movies;
 
-                // L'api ne prend pas plus haut que 500 pages
-                if (actualPageLoaded < 500)
+                ArrayList<BasicMovie> moviesToInsert = new ArrayList<>();
+                 if (pageViewModel.getIsOnlyLiked()) {
+                    // Ajoute les films qui sont dans la base de données
+                    for (BasicMovie movie : movies) {
+                        if (dbHelper.isMovieLiked(movie.getId())) {
+                            moviesToInsert.add(movie);
+                        }
+                    }
+                } else {
+                    moviesToInsert = movies;
+                }
+
+                adapter.addAll(moviesToInsert);
+                localDataset = moviesToInsert;
+
+                if (actualPageLoaded <= pageViewModel.getTotalPages()) {
                     actualPageLoaded++;
+                    isEndOfList = true;
+                }
 
                 isLoading = false;
                 progressIndicator.setVisibility(View.INVISIBLE);
+            }
+        });
+
+        pageViewModel.getIsOnFilter().observe(requireActivity(), isOnFilter -> {
+            if (isOnFilter) {
+                actualPageLoaded = 1;
+                isEndOfList = false;
+                adapter.clear();
+                adapter.updateSelectedAtNull();
+                pageViewModel.setIsOnFilter(false);
+                onFilter = true;
+                isLoading = true;
+                onSearch = false;
+                progressIndicator.setVisibility(View.VISIBLE);
             }
         });
 
@@ -183,11 +221,21 @@ public class MovieListFragment extends Fragment {
     }
 
     private void loadMovie() {
-        MovieAPIView.getMoviePages(actualPageLoaded, pageViewModel);
+        if (!onFilter && !onSearch) {
+            MovieAPIView.getMoviePages(actualPageLoaded, pageViewModel);
+        } else if (onSearch) {
+            MovieAPIView.searchMovie(actualPageLoaded, textInputLayout.getEditText().getText().toString(), pageViewModel);
+        } else {
+            MovieAPIView.getMoviesWithFilter(actualPageLoaded,pageViewModel.getFilterGenreId(), pageViewModel.getFilterYear1(), pageViewModel.getFilterYear2(), pageViewModel);
+        }
     }
 
     private void resetSearch() {
         actualPageLoaded = 1;
+        onSearch = false;
+        onFilter = false;
+        isEndOfList = false;
+        pageViewModel.setIsOnlyLiked(false);
         adapter.clear();
         adapter.updateSelectedAtNull();
         progressIndicator.setVisibility(View.VISIBLE);

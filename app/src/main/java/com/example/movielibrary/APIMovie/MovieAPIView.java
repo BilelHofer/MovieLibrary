@@ -47,6 +47,8 @@ public class MovieAPIView {
                     MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
+                    //pageViewModel.setTotalPages(results.getTotalPages());
+
                     dataset.addAll(movies);
 
                     // On ajoute le dataset à la pageViewModel
@@ -161,6 +163,8 @@ public class MovieAPIView {
                     MovieResult results = response.body();
                     List<BasicMovie> movies = results.getMovies();
 
+                    //pageViewModel.setTotalPages(results.getTotalPages());
+
                     dataset.addAll(movies);
 
                     // On ajoute le dataset à la pageViewModel
@@ -205,6 +209,54 @@ public class MovieAPIView {
 
             @Override
             public void onFailure(Call<GenresResult> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    /**
+     * Méthode qui permet de récupérer les films en fonction d'un genre, et de date
+     */
+    public static void getMoviesWithFilter(int page, int genreId, int year1, int year2, PageViewModel pageViewModel) {
+        ArrayList<BasicMovie> dataset = new ArrayList<>();
+
+        // On crée la date
+        String date1 = year1 + "-01-01";
+        String date2 = year2 + "-12-31";
+
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<MovieResult> call;
+        if (genreId != -1)
+            call = movieApi.getMovieFiltred(API_KEY, genreId, page, date1, date2, pageViewModel.getLanguage());
+        else
+            call = movieApi.getMovieFiltredYear(API_KEY, page, date1, date2, pageViewModel.getLanguage());
+        call.enqueue(new Callback<MovieResult>() {
+            @Override
+            public void onResponse(Call<MovieResult> call, retrofit2.Response<MovieResult> response) {
+                if (response.isSuccessful()) {
+                    MovieResult results = response.body();
+                    List<BasicMovie> movies = results.getMovies();
+
+                    pageViewModel.setTotalPages(results.getTotalPages());
+
+                    dataset.addAll(movies);
+
+                    // On ajoute le dataset à la pageViewModel
+                    pageViewModel.setMovieList(dataset);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MovieResult> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });

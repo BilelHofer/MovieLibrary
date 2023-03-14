@@ -33,11 +33,21 @@ public interface MovieAPI {
             @Query("api_key") String apiKey
     );
 
-    // Récupère les films avec un genre particulier
+    // Récupère les films avec des filtre particulier
     @GET("discover/movie")
     Call<MovieResult> getMovieFiltred(
             @Query("api_key") String apiKey,
             @Query("with_genres") int with_genres,
+            @Query("page") int page,
+            @Query("primary_release_date.gte") String primary_release_date_gte,
+            @Query("primary_release_date.lte") String primary_release_date_lte,
+            @Query("language") String language
+    );
+
+    // Récupère les films avec des année seulement
+    @GET("discover/movie")
+    Call<MovieResult> getMovieFiltredYear(
+            @Query("api_key") String apiKey,
             @Query("page") int page,
             @Query("primary_release_date.gte") String primary_release_date_gte,
             @Query("primary_release_date.lte") String primary_release_date_lte,

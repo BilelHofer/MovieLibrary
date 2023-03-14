@@ -33,6 +33,14 @@ public class PageViewModel extends ViewModel {
     private MutableLiveData<Genre[]> mGenreList = new MutableLiveData<>();
 
     private Boolean mIsOnlyLiked = false;
+
+    private MutableLiveData<Boolean> mIsOnFilter = new MutableLiveData<>();
+
+    private int mFilterGenreId = -1;
+    private int mFilterYear1 = 1874;
+    private int mFilterYear2 = 2023;
+
+    private int mTotalPages = 0;
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -111,5 +119,45 @@ public class PageViewModel extends ViewModel {
 
     public Boolean getIsOnlyLiked() {
         return mIsOnlyLiked;
+    }
+
+    public void setIsOnFilter(Boolean isOnFilter) {
+        mIsOnFilter.setValue(isOnFilter);
+    }
+
+    public MutableLiveData<Boolean> getIsOnFilter() {
+        return mIsOnFilter;
+    }
+
+    public void setFilterGenreId(int filterGenreId) {
+        mFilterGenreId = filterGenreId;
+    }
+
+    public int getFilterGenreId() {
+        return mFilterGenreId;
+    }
+
+    public void setFilterYear1(int filterYear1) {
+        mFilterYear1 = filterYear1;
+    }
+
+    public int getFilterYear1() {
+        return mFilterYear1;
+    }
+
+    public void setFilterYear2(int filterYear2) {
+        mFilterYear2 = filterYear2;
+    }
+
+    public int getFilterYear2() {
+        return mFilterYear2;
+    }
+
+    public void setTotalPages(int totalPages) {
+        mTotalPages = totalPages;
+    }
+
+    public int getTotalPages() {
+        return mTotalPages;
     }
 }

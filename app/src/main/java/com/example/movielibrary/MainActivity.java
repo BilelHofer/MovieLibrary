@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.SMALL);
         } else if (getResources().getConfiguration().screenWidthDp > 1200) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
             pageViewModel.setScreenSize(PageViewModel.ScreenSize.LARGE);
         }
 
