@@ -24,6 +24,7 @@ import com.squareup.picasso.Picasso;
 
 public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.ListViewHolder> {
     private ArrayList<Actor> localDataSet;
+    private PageViewModel pageViewModel;
 
 
     public class ListViewHolder extends RecyclerView.ViewHolder {
@@ -37,6 +38,9 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.List
             actorName2 = (TextView) view.findViewById(R.id.item_actor_name2);
             actorImage = (ImageView) view.findViewById(R.id.item_actor_poster);
 
+            actorImage.setOnClickListener(v -> {
+                MovieAPIView.getActor(localDataSet.get(getAdapterPosition()).getId(), pageViewModel);
+            });
         }
 
         public TextView getActorName() {
@@ -59,7 +63,8 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.List
      * @param dataSet String[] containing the data to populate views to be used
      * by RecyclerView.
      */
-    public ActorListAdapter(ArrayList<Actor> dataSet) {
+    public ActorListAdapter(ArrayList<Actor> dataSet, PageViewModel pageViewModel) {
+        this.pageViewModel = pageViewModel;
         localDataSet = dataSet;
     }
 
@@ -79,6 +84,8 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.List
 
         // Mise à jour des données affichées
         String name = localDataSet.get(position).getName();
+
+        Log.d("ACTOR", String.valueOf(localDataSet.get(position).getId()));
 
         // Si le nom est trop long, sépars le nom et le prenom
         if (name.length() > 15) {

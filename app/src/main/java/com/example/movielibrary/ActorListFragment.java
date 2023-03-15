@@ -40,7 +40,7 @@ public class ActorListFragment extends Fragment {
         recyclerView = view.findViewById(R.id.actor_list);
 
         // Création de la dataset pour le recycleView
-        adapter = new ActorListAdapter(localDataset);
+        adapter = new ActorListAdapter(localDataset, pageViewModel);
         recyclerView.setAdapter(adapter);
         loadActors();
 

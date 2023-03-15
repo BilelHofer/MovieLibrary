@@ -109,7 +109,6 @@ public class DrawerMenuFragment extends Fragment {
             }
         });
 
-
         dateSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(RangeSlider slider, float value, boolean fromUser) {

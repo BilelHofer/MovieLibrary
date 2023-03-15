@@ -24,8 +24,15 @@ public interface MovieAPI {
             @Path("movie_id") int movieId,
             @Query("api_key") String apiKey,
             @Query("language") String language
-            );
+    );
 
+    // Récupère les acteurs grâce à leur id
+    @GET("person/{person_id}")
+    Call<ActorDetail> getActor (
+            @Path("person_id") int person_id,
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
     // Récupère les crédits d'un film
     @GET("movie/{movie_id}/credits")
     Call<CreditsResult> getCredits(

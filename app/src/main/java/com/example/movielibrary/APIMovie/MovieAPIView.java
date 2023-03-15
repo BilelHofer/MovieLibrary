@@ -308,4 +308,34 @@ public class MovieAPIView {
             }
         });
     }
+
+    public static void getActor(int actorId, PageViewModel pageViewModel) {
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<ActorDetail> call = movieApi.getActor(actorId, API_KEY, pageViewModel.getLanguage());
+
+        call.enqueue(new Callback<ActorDetail>() {
+            @Override
+            public void onResponse(Call<ActorDetail> call, retrofit2.Response<ActorDetail> response) {
+                if (response.isSuccessful()) {
+                    ActorDetail actor = response.body();
+
+                    pageViewModel.setActorDetail(actor);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ActorDetail> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
 }

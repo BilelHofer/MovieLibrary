@@ -98,6 +98,11 @@ public class MovieInformationFragment extends Fragment {
             }
         });
 
+        // Au clic sur un acteur, on affiche son profil
+        pageViewModel.getActorDetail().observe(requireActivity(), actor -> {
+            ((MainActivity) getActivity()).updateFragment(new ActorFragment());
+        });
+
         return view;
     }
 

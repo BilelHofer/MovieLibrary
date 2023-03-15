@@ -94,4 +94,8 @@ public class MainActivity extends AppCompatActivity {
             imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
         }
     }
+
+    public void updateFragment(Fragment fragment) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_movie_information_fragment_container, fragment).commit();
+    }
 }

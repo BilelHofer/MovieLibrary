@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.movielibrary.APIMovie.Actor;
+import com.example.movielibrary.APIMovie.ActorDetail;
 import com.example.movielibrary.APIMovie.BasicMovie;
 import com.example.movielibrary.APIMovie.Genre;
 import com.example.movielibrary.APIMovie.Movie;
@@ -39,8 +40,8 @@ public class PageViewModel extends ViewModel {
     private int mFilterGenreId = -1;
     private int mFilterYear1 = 1874;
     private int mFilterYear2 = 2023;
-
     private int mTotalPages = 0;
+    private MutableLiveData<ActorDetail> mActorDetail = new MutableLiveData<>();
     public void setMovieList(ArrayList<BasicMovie> movieList) {
         mMovieList.setValue(movieList);
     }
@@ -159,5 +160,13 @@ public class PageViewModel extends ViewModel {
 
     public int getTotalPages() {
         return mTotalPages;
+    }
+
+    public void setActorDetail(ActorDetail actorDetail) {
+        mActorDetail.setValue(actorDetail);
+    }
+
+    public MutableLiveData<ActorDetail> getActorDetail() {
+        return mActorDetail;
     }
 }
