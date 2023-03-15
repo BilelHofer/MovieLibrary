@@ -56,6 +56,9 @@ public class MainActivity extends AppCompatActivity {
                 if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
                     getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
                     getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                } else {
+                    getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                    getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
                 }
             }
         });
@@ -87,7 +90,10 @@ public class MainActivity extends AppCompatActivity {
                 getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
             }
         } else {
-            super.onBackPressed();
+            if (!getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container).isVisible()) {
+                getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
+            }
         }
     }
 
@@ -102,7 +108,10 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateFragment(Fragment fragment) {
+    /**
+     * Met à jour le fragment d'information sur l'acteur
+     */
+    public void updateView() {
         getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
         getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
 
