@@ -128,11 +128,11 @@ public class MovieInformationFragment extends Fragment {
         String[] dateSplit = date.split("-");
         String month = dateSplit[1];
         String year = dateSplit[0];
-        String[] planets = getResources().getStringArray(R.array.month_array);
+        String[] monthArray = getResources().getStringArray(R.array.month_array);
 
         Integer monthInt = Integer.parseInt(month);
 
-        month = planets[monthInt - 1];
+        month = monthArray[monthInt - 1];
 
         date = month + " " + year;
         releaseDate.setText(date);

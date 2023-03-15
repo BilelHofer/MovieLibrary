@@ -1,14 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".ActorFragment">
+    <ScrollView
+            android:id="@+id/actor_main_scrollview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+        <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment" />
+            <ImageView
+                    android:id="@+id/actor_poster"
+                    android:layout_width="300dp"
+                    android:layout_height="450dp"
+                    android:background="@drawable/border_image"
+                    android:layout_centerHorizontal="true"
+                    android:padding="1dp"
+                    android:layout_marginTop="20dp"/>
 
-</FrameLayout>
+            <TextView
+                    android:id="@+id/actor_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/actor_poster"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+            <TextView
+                    android:id="@+id/actor_birth_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/actor_name"
+                    android:layout_marginStart="40dp"
+                    android:textSize="15sp"/>
+            <TextView
+                    android:id="@+id/actor_death_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/actor_name"
+                    android:layout_alignParentEnd="true"
+                    android:paddingEnd="36dp"
+                    android:textSize="@dimen/info_text_date_size"/>
+
+            <TextView
+                    android:id="@+id/actor_biography_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/actor_birth_date"
+                    android:textSize="@dimen/summary_title2_size"
+                    android:textStyle="bold"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginStart="@dimen/info_w600_marginStart"
+                    android:layout_marginBottom="@dimen/summary_title_marginBottom"
+                    android:text="@string/actor_biography"/>
+            <TextView
+                    android:id="@+id/actor_biography"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-10dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal|center"
+                    android:layout_below="@id/actor_biography_title"
+                    android:padding="@dimen/info_w600_marginStart"
+                    android:layout_marginBottom="10dp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

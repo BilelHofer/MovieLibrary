@@ -3,7 +3,7 @@
     <string name="app_name">The Library</string>
     <string name="summary_title">Summary</string>
     <string-array name="month_array">
-        <item>Janvuary</item>
+        <item>January</item>
         <item>February</item>
         <item>March</item>
         <item>April</item>
@@ -26,4 +26,5 @@
     <string name="parameter_year">Between</string>
     <string name="parameter_all">All</string>
     <string name="label_apply">Search</string>
+    <string name="actor_biography">Biography</string>
 </resources>
