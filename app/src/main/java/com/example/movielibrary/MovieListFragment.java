@@ -102,6 +102,7 @@ public class MovieListFragment extends Fragment {
         });
         // Recherche
         textInputLayout.setEndIconOnClickListener(v -> {
+            pageViewModel.setNeedCloseKeyboard(true);
             noMovieFoundLayout.setVisibility(View.GONE);
             if (needResetIcon) {
                 resetSearch();
