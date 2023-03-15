@@ -264,28 +264,12 @@ public class MovieAPIView {
         });
     }
 
-    /**TODO A FINIR ET TESTER
-     * Méthode qui permet de récupérer les films qui sont aimé dans la db
+    /**
+     * Méthode qui permet de récupérer un film en fonction de son id et le mettre dans le pageViewModel
+     * @param movieId
+     * @param pageViewModel
      */
-    public void getAllLiked(DatabaseHelper dbhelper, PageViewModel pageViewModel) {
-        ArrayList<BasicMovie> dataset = new ArrayList<>();
-
-        // On récupère les films aimés
-        Cursor cursor = dbhelper.getAllLike();
-
-        pageViewModel.setMovieList(new ArrayList<>());
-
-        // On parcours le curseur
-        while (cursor.moveToNext()) {
-            getMovieToList(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID), pageViewModel);
-        }
-        cursor.close();
-
-        // On ajoute le dataset à la pageViewModel
-        pageViewModel.setMovieList(dataset);
-    }
-
-    private static void getMovieToList(int movieId, PageViewModel pageViewModel) {
+    public static void getMovieToList(int movieId, PageViewModel pageViewModel) {
         // Créez une instance de Retrofit
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
@@ -303,6 +287,17 @@ public class MovieAPIView {
             public void onResponse(Call<Movie> call, retrofit2.Response<Movie> response) {
                 if (response.isSuccessful()) {
                     Movie movie = response.body();
+
+                    ArrayList<BasicMovie> dataset = new ArrayList<>();
+
+                    // Ajoute tous les films du pageViewModel au dataset
+                    dataset = pageViewModel.getMovieList().getValue();
+
+                    BasicMovie movie1 = new BasicMovie(movie.getId(), movie.getTitle(), movie.getVote_average());
+
+                    dataset.add(movie1);
+
+                    pageViewModel.setMovieList(dataset);
 
                 }
             }

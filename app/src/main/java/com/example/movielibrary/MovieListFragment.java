@@ -52,6 +52,8 @@ public class MovieListFragment extends Fragment {
 
     private LinearLayout mainLayout;
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,6 @@ public class MovieListFragment extends Fragment {
         mainLayout = view.findViewById(R.id.movie_list_layout);
 
         menu = view.findViewById(R.id.menu_drawer);
-
 
         // Met à jour la couleur de fond du menu
         menu.setBackground(getResources().getDrawable(R.drawable.app_background));
@@ -152,16 +153,9 @@ public class MovieListFragment extends Fragment {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
 
-                if(!recyclerView.canScrollVertically(1)) {
-
-                    Log.d("MovieListFragment", "Chargement de la page " + actualPageLoaded);
-                }
-
                 if (!recyclerView.canScrollVertically(1) && !isEndOfList) {
-                    if (!isLoading) {
+                    if (!isLoading && !pageViewModel.getIsOnlyLiked()) {
                         // Chargez la page suivante des données
-
-
                         loadMovie();
                         isLoading = true;
                     }
@@ -186,22 +180,9 @@ public class MovieListFragment extends Fragment {
                 noMovieFoundLayout.setVisibility(View.GONE);
             }
 
-            if (movies != localDataset) {
-
-                ArrayList<BasicMovie> moviesToInsert = new ArrayList<>();
-                 if (pageViewModel.getIsOnlyLiked()) {
-                    // Ajoute les films qui sont dans la base de données
-                    for (BasicMovie movie : movies) {
-                        if (dbHelper.isMovieLiked(movie.getId())) {
-                            moviesToInsert.add(movie);
-                        }
-                    }
-                } else {
-                    moviesToInsert = movies;
-                }
-
-                adapter.addAll(moviesToInsert);
-                localDataset = moviesToInsert;
+            if (movies != localDataset || pageViewModel.getIsOnlyLiked()) {
+                adapter.addAll(movies);
+                localDataset = movies;
 
                 if (actualPageLoaded < pageViewModel.getTotalPages()) {
                     actualPageLoaded++;

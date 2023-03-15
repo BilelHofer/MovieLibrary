@@ -1,5 +1,6 @@
 package com.example.movielibrary;
 
+import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -23,6 +25,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.example.movielibrary.APIMovie.BasicMovie;
 import com.example.movielibrary.APIMovie.Genre;
 import com.example.movielibrary.APIMovie.MovieAPIView;
 import com.google.android.material.slider.LabelFormatter;
@@ -48,11 +51,15 @@ public class DrawerMenuFragment extends Fragment {
     private int maxYear = 2023;
 
     private int selectedGenreId = -1;
+
+    private DatabaseHelper dbHelper;
+    private Handler handler = new Handler();
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         pageViewModel = ViewModelProviders.of(requireActivity()).get(PageViewModel.class);
+        dbHelper = new DatabaseHelper(getContext());
     }
 
     @Override
@@ -84,10 +91,14 @@ public class DrawerMenuFragment extends Fragment {
                 pageViewModel.setIsOnlyLiked(onlyLikedCheckBox.isChecked());
                 pageViewModel.setIsOnFilter(true);
 
-                MovieAPIView.getMoviesWithFilter(1, selectedGenreId, minYear, maxYear, pageViewModel);
-                pageViewModel.setFilterGenreId(selectedGenreId);
-                pageViewModel.setFilterYear1(minYear);
-                pageViewModel.setFilterYear2(maxYear);
+                if (pageViewModel.getIsOnlyLiked()) {
+                    handler.post(getAllMovieLiked);
+                } else {
+                    MovieAPIView.getMoviesWithFilter(1, selectedGenreId, minYear, maxYear, pageViewModel);
+                    pageViewModel.setFilterGenreId(selectedGenreId);
+                    pageViewModel.setFilterYear1(minYear);
+                    pageViewModel.setFilterYear2(maxYear);
+                }
             }
         });
 
@@ -176,4 +187,26 @@ public class DrawerMenuFragment extends Fragment {
             });
         }
     }
+
+    private Runnable getAllMovieLiked = new Runnable() {
+        @Override
+        public void run() {
+            Cursor cursor = dbHelper.getAllLike();
+
+            pageViewModel.setMovieList(new ArrayList<>());
+
+            // On parcours le curseur
+            while (cursor.moveToNext()) {
+                MovieAPIView.getMovieToList(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID)), pageViewModel);
+
+                // On attend 200ms pour éviter de spammer l'api
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+            cursor.close();
+        }
+    };
 }
