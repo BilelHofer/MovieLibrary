@@ -85,8 +85,6 @@ public class ActorListAdapter extends RecyclerView.Adapter<ActorListAdapter.List
         // Mise à jour des données affichées
         String name = localDataSet.get(position).getName();
 
-        Log.d("ACTOR", String.valueOf(localDataSet.get(position).getId()));
-
         // Si le nom est trop long, sépars le nom et le prenom
         if (name.length() > 15) {
             String[] splitName = name.split(" ");

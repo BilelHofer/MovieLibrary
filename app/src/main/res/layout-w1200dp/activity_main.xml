@@ -20,15 +20,21 @@
             android:layout_height="match_parent"
             android:background="@drawable/w600_separator"/>
 
-    <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_movie_information_fragment_container"
+    <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:name="com.example.movielibrary.MovieInformationFragment" />
+            android:layout_height="match_parent">
 
-    <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/main_actor_information_fragment_container"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:name="com.example.movielibrary.ActorFragment" />
+        <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/main_movie_information_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:name="com.example.movielibrary.MovieInformationFragment" />
+
+        <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/main_actor_information_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:name="com.example.movielibrary.ActorFragment" />
+
+    </FrameLayout>
 </LinearLayout>
