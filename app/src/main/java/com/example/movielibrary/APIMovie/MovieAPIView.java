@@ -1,7 +1,9 @@
 package com.example.movielibrary.APIMovie;
 
+import android.database.Cursor;
 import android.util.Log;
 
+import com.example.movielibrary.DatabaseHelper;
 import com.example.movielibrary.PageViewModel;
 
 import java.util.ArrayList;
@@ -257,6 +259,56 @@ public class MovieAPIView {
 
             @Override
             public void onFailure(Call<MovieResult> call, Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+            }
+        });
+    }
+
+    /**TODO A FINIR ET TESTER
+     * Méthode qui permet de récupérer les films qui sont aimé dans la db
+     */
+    public void getAllLiked(DatabaseHelper dbhelper, PageViewModel pageViewModel) {
+        ArrayList<BasicMovie> dataset = new ArrayList<>();
+
+        // On récupère les films aimés
+        Cursor cursor = dbhelper.getAllLike();
+
+        pageViewModel.setMovieList(new ArrayList<>());
+
+        // On parcours le curseur
+        while (cursor.moveToNext()) {
+            getMovieToList(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID), pageViewModel);
+        }
+        cursor.close();
+
+        // On ajoute le dataset à la pageViewModel
+        pageViewModel.setMovieList(dataset);
+    }
+
+    private static void getMovieToList(int movieId, PageViewModel pageViewModel) {
+        // Créez une instance de Retrofit
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        // Créez une instance de l'interface MovieApi
+        MovieAPI movieApi = retrofit.create(MovieAPI.class);
+
+        // Appel de la méthode pour récupérer les films
+        Call<Movie> call = movieApi.getMovie(movieId, API_KEY, pageViewModel.getLanguage());
+
+        call.enqueue(new Callback<Movie>() {
+            @Override
+            public void onResponse(Call<Movie> call, retrofit2.Response<Movie> response) {
+                if (response.isSuccessful()) {
+                    Movie movie = response.body();
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Movie> call, Throwable t) {
                 System.out.println("Error: " + t.getMessage());
             }
         });

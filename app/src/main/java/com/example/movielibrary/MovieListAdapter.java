@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import com.example.movielibrary.APIMovie.BasicMovie;
@@ -122,6 +123,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
             viewHolder.shapeLayout.setBackground(viewHolder.shapeLayout.getContext().getDrawable(R.drawable.movie_list_item_background));
         }
 
+
         // Mise à jour des données affichées
         viewHolder.getFilmTitle().setText(localDataSet.get(position).getTitle());
 
@@ -130,6 +132,7 @@ public class MovieListAdapter extends RecyclerView.Adapter<MovieListAdapter.List
         } else {
             viewHolder.getLike().setImageResource(R.drawable.like_null);
         }
+
     }
 
     // Return the size of your dataset (invoked by the layout manager)

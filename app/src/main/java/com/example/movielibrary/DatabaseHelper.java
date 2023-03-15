@@ -101,25 +101,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public boolean updateLike(int movieId) {
         boolean movieLiked = false;
 
-        if (getNumberOfMovies() == 0) {
-            addMovie(movieId);
+        if (isMovieLiked(movieId)) {
+            removeMovie(movieId);
         } else {
-
-            Cursor cursor = getAllLike();
-            while (cursor.moveToNext()) {
-
-                if (movieId == cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID))) {
-                    movieLiked = true;
-                }
-
-                if (movieLiked) {
-                    removeMovie(movieId);
-                } else {
-                    addMovie(movieId);
-                }
-            }
-            cursor.close();
+            addMovie(movieId);
+            movieLiked = true;
         }
+
         return !movieLiked;
     }
 }

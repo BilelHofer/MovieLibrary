@@ -71,6 +71,7 @@ public class MovieListFragment extends Fragment {
 
         menu = view.findViewById(R.id.menu_drawer);
 
+
         // Met à jour la couleur de fond du menu
         menu.setBackground(getResources().getDrawable(R.drawable.app_background));
 
