@@ -181,6 +181,11 @@ public class MovieListFragment extends Fragment {
             }
 
             if (movies != localDataset || pageViewModel.getIsOnlyLiked()) {
+
+                if (pageViewModel.getIsOnlyLiked()) {
+                    adapter.clear();
+                }
+
                 adapter.addAll(movies);
                 localDataset = movies;
 

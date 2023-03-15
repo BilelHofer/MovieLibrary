@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
             pageViewModel.setLanguage("en-US");
         }
 
-        //TODO: faire que le clic suivre ok sur le clavier applique la recherche
-
         // Modifi le fonctionnement de l'application en fonction de la taille de l'écran
         if (getResources().getConfiguration().screenWidthDp < 600) {
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
@@ -77,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public void onBackPressed() {
-        Log.d("test", "onBackPressed: " + pageViewModel.getScreenSize());
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
             getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
             getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
@@ -87,6 +84,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Ferme le claviery
+     */
     private void closeKeyboard() {
         View view = this.getCurrentFocus();
         if (view != null) {

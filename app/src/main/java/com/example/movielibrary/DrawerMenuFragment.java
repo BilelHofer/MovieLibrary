@@ -197,6 +197,7 @@ public class DrawerMenuFragment extends Fragment {
 
             // On parcours le curseur
             while (cursor.moveToNext()) {
+
                 MovieAPIView.getMovieToList(cursor.getInt(cursor.getColumnIndex(DatabaseHelper.COLUMN_MOVIE_ID)), pageViewModel);
 
                 // On attend 200ms pour éviter de spammer l'api
