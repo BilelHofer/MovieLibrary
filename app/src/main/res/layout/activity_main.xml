@@ -20,5 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:name="com.example.movielibrary.MovieInformationFragment" />
+    <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/main_actor_information_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:name="com.example.movielibrary.ActorFragment" />
 
 </RelativeLayout>

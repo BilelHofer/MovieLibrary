@@ -29,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
         // initialise le  ViewModel
         pageViewModel = new ViewModelProvider(this).get(PageViewModel.class);
 
+        getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
+
         // Choix de la langue de l'API en fonction de la langue du téléphone
         String languagename = Locale.getDefault().getDisplayLanguage();
 
@@ -76,9 +78,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
-            getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
-            getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
-            pageViewModel.setMovie(null);
+            if (getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container).isVisible()) {
+                getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_list_fragment_container)).commit();
+                getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                pageViewModel.setMovie(null);
+            } else {
+                getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+                getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
+            }
         } else {
             super.onBackPressed();
         }
@@ -96,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateFragment(Fragment fragment) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_movie_information_fragment_container, fragment).commit();
+        getSupportFragmentManager().beginTransaction().hide(getSupportFragmentManager().findFragmentById(R.id.main_movie_information_fragment_container)).commit();
+        getSupportFragmentManager().beginTransaction().show(getSupportFragmentManager().findFragmentById(R.id.main_actor_information_fragment_container)).commit();
+
     }
 }
