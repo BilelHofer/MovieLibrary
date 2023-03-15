@@ -55,7 +55,6 @@ public class MovieInformationFragment extends Fragment {
 
         // Gère le bouton like pour la version mobile
         if (pageViewModel.getScreenSize() == PageViewModel.ScreenSize.SMALL) {
-            Log.d("MovieInformationFragment", "onCreateView: " + pageViewModel.getScreenSize());
             btn_like = view.findViewById(R.id.info_like);
         } else {
             btn_like = null;
@@ -67,7 +66,7 @@ public class MovieInformationFragment extends Fragment {
             btn_like.setOnClickListener(v -> {
                 if (pageViewModel.getMovie().getValue() != null) {
                     Movie movie = pageViewModel.getMovie().getValue();
-                    if (dbHelper.updateLike(movie.getId())) {
+                    if (!dbHelper.updateLike(movie.getId())) {
                         btn_like.setImageResource(R.drawable.like_full);
                     } else {
                         btn_like.setImageResource(R.drawable.like_null);
